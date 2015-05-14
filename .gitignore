@@ -1,6 +1,21 @@
-composer.phar
-vendor/
+build
+.DS_Store
+phpunit.local.xml
+*.log
 
-# Commit your application's lock file http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file
-# You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
-# composer.lock
+# IDE
+.idea
+.project
+.settings
+.buildpath
+atlassian-ide-plugin.xml
+*.bak
+
+# Composer
+vendor
+composer.lock
+
+# Project
+var
+tools
+
