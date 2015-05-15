@@ -11,7 +11,7 @@ use Rapid\Rest\ApiContext;
  *
  * @package Rapid\Transport
  */
-class RapidRestCall
+class RestCall
 {
 
 

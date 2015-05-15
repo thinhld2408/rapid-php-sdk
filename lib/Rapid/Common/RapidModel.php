@@ -2,6 +2,9 @@
 
 namespace Rapid\Common;
 
+use Rapid\Validation\JsonValidator;
+use Rapid\Validation\ModelAccessorValidator;
+
 /**
  * Generic Model class that all API domain classes extend
  * Stores all member data in a Hashmap that enables easy
@@ -168,6 +171,9 @@ class RapidModel {
     {
         $ret = array();
         foreach ($param as $k => $v) {
+
+            $kc = uc();
+
             if ($v instanceof RapidModel) {
                 $ret[$k] = $v->toArray();
             } else if (sizeof($v) <= 0 && is_array($v)) {
@@ -245,13 +251,17 @@ class RapidModel {
 
     private function assignValue($key, $value)
     {
+        $setter = "set" . $key;
+        $this->$setter($value);
         // If we find the getter setter, use that, otherwise use magic method.
+        /*
         if (ModelAccessorValidator::validate($this, $this->convertToCamelCase($key))) {
             $setter = "set" . $this->convertToCamelCase($key);
             $this->$setter($value);
         } else {
             $this->__set($key, $value);
         }
+        */
     }
 
     /**
