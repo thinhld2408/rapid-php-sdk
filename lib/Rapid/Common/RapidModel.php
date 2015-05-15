@@ -171,9 +171,6 @@ class RapidModel {
     {
         $ret = array();
         foreach ($param as $k => $v) {
-
-            $kc = uc();
-
             if ($v instanceof RapidModel) {
                 $ret[$k] = $v->toArray();
             } else if (sizeof($v) <= 0 && is_array($v)) {
