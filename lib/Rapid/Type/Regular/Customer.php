@@ -3,8 +3,6 @@
 /**
  * PHP version 5
  *
- * @category   CategoryName
- * @package    PackageName
  * @author     Dzung Tran <dzung.tt@outlook.com>
  * @license    http://www.opensource.org/licenses/bsd-license.php BSD License
  * @version    1.0.0
@@ -153,6 +151,7 @@ class Customer extends RapidModel {
 
     /**
      * @param mixed $address
+     * @return $this
      */
     public function setAddress($address)
     {
@@ -161,6 +160,7 @@ class Customer extends RapidModel {
         }else{
             $this->address = new Address($address);
         }
+        return $this;
     }
 
     /**
@@ -173,10 +173,12 @@ class Customer extends RapidModel {
 
     /**
      * @param mixed $phone
+     * @return $this
      */
     public function setPhone($phone)
     {
         $this->phone = $phone;
+        return $this;
     }
 
     /**
@@ -189,10 +191,12 @@ class Customer extends RapidModel {
 
     /**
      * @param mixed $mobile
+     * @return $this
      */
     public function setMobile($mobile)
     {
         $this->mobile = $mobile;
+        return $this;
     }
 
     /**
@@ -205,10 +209,12 @@ class Customer extends RapidModel {
 
     /**
      * @param mixed $fax
+     * @return $this
      */
     public function setFax($fax)
     {
         $this->fax = $fax;
+        return $this;
     }
 
     /**
@@ -221,10 +227,12 @@ class Customer extends RapidModel {
 
     /**
      * @param mixed $url
+     * @return $this
      */
     public function setUrl($url)
     {
         $this->url = $url;
+        return $this;
     }
 
     /**
@@ -237,10 +245,12 @@ class Customer extends RapidModel {
 
     /**
      * @param mixed $comment
+     * @return $this
      */
     public function setComment($comment)
     {
         $this->comment = $comment;
+        return $this;
     }
 
     /**
@@ -253,6 +263,7 @@ class Customer extends RapidModel {
 
     /**
      * @param mixed $card_details
+     * @return $this
      */
     public function setCardDetails($card_details)
     {
@@ -261,5 +272,6 @@ class Customer extends RapidModel {
         }else{
             $this->card_details = new CardDetails($card_details);
         }
+        return $this;
     }
 }

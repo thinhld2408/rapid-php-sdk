@@ -3,8 +3,6 @@
 /**
  * PHP version 5
  *
- * @category   CategoryName
- * @package    PackageName
  * @author     Dzung Tran <dzung.tt@outlook.com>
  * @license    http://www.opensource.org/licenses/bsd-license.php BSD License
  * @version    1.0.0
@@ -14,6 +12,7 @@
 namespace Rapid\Type\Regular;
 
 use Rapid\Common\RapidModel;
+use Rapid\Validation\NumericValidator;
 
 class LineItem extends RapidModel {
 
@@ -67,6 +66,7 @@ class LineItem extends RapidModel {
      */
     public function setQuantity($quantity)
     {
+        NumericValidator::validate($quantity, 'Quantity');
         $this->quantity = $quantity;
         return $this;
     }
@@ -85,6 +85,7 @@ class LineItem extends RapidModel {
      */
     public function setUnitCost($unit_cost)
     {
+        NumericValidator::validate($unit_cost, 'Unit Cost');
         $this->unit_cost = $unit_cost;
         return $this;
     }
@@ -121,6 +122,7 @@ class LineItem extends RapidModel {
      */
     public function setTotal($total)
     {
+        NumericValidator::validate($total, 'Total');
         $this->total = $total;
         return $this;
     }

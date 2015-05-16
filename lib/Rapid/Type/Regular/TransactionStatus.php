@@ -3,12 +3,10 @@
 /**
  * PHP version 5
  *
- * @category   CategoryName
- * @package    PackageName
  * @author     Dzung Tran <dzung.tt@outlook.com>
  * @license    http://www.opensource.org/licenses/bsd-license.php BSD License
  * @version    1.0.0
- * @description 
+ * @description
  */
 
 namespace Rapid\Type\Regular;
@@ -27,10 +25,12 @@ class TransactionStatus extends RapidModel {
 
     /**
      * @param mixed $transaction_ID
+     * @return $this
      */
     public function setTransactionID($transaction_ID)
     {
         $this->transaction_ID = $transaction_ID;
+        return $this;
     }
 
     /**
@@ -43,10 +43,12 @@ class TransactionStatus extends RapidModel {
 
     /**
      * @param mixed $total
+     * @return $this
      */
     public function setTotal($total)
     {
         $this->total = $total;
+        return $this;
     }
 
     /**
@@ -59,10 +61,12 @@ class TransactionStatus extends RapidModel {
 
     /**
      * @param mixed $status
+     * @return $this
      */
     public function setStatus($status)
     {
         $this->status = $status;
+        return $this;
     }
 
     /**
@@ -75,10 +79,12 @@ class TransactionStatus extends RapidModel {
 
     /**
      * @param mixed $captured
+     * @return $this
      */
     public function setCaptured($captured)
     {
         $this->captured = $captured;
+        return $this;
     }
 
     /**
@@ -91,10 +97,12 @@ class TransactionStatus extends RapidModel {
 
     /**
      * @param mixed $beagle_score
+     * @return $this
      */
     public function setBeagleScore($beagle_score)
     {
         $this->beagle_score = $beagle_score;
+        return $this;
     }
 
     /**
@@ -107,10 +115,12 @@ class TransactionStatus extends RapidModel {
 
     /**
      * @param mixed $fraud_action
+     * @return $this
      */
     public function setFraudAction($fraud_action)
     {
         $this->fraud_action = $fraud_action;
+        return $this;
     }
 
     /**
@@ -123,14 +133,16 @@ class TransactionStatus extends RapidModel {
 
     /**
      * @param mixed $verification_result
+     * @return $this
      */
     public function setVerificationResult($verification_result)
     {
-        if($verification_result instanceof VerificationResult){
+        if ($verification_result instanceof VerificationResult) {
             $this->verification_result = $verification_result;
-        }else{
+        } else {
             $this->verification_result = new VerificationResult($verification_result);
         }
+        return $this;
     }
 
     /**
@@ -143,13 +155,15 @@ class TransactionStatus extends RapidModel {
 
     /**
      * @param mixed $processing_details
+     * @return $this
      */
     public function setProcessingDetails($processing_details)
     {
-        if($processing_details instanceof ProcessingDetails){
+        if ($processing_details instanceof ProcessingDetails) {
             $this->processing_details = $processing_details;
-        }else{
+        } else {
             $this->processing_details = new ProcessingDetails($processing_details);
         }
+        return $this;
     }
 }

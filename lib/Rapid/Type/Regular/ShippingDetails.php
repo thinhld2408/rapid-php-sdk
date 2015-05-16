@@ -3,8 +3,6 @@
 /**
  * PHP version 5
  *
- * @category   CategoryName
- * @package    PackageName
  * @author     Dzung Tran <dzung.tt@outlook.com>
  * @license    http://www.opensource.org/licenses/bsd-license.php BSD License
  * @version    1.0.0
@@ -27,10 +25,12 @@ class ShippingDetails extends RapidModel {
 
     /**
      * @param mixed $first_name
+     * @return $this
      */
     public function setFirstName($first_name)
     {
         $this->first_name = $first_name;
+        return $this;
     }
 
     /**
@@ -43,10 +43,12 @@ class ShippingDetails extends RapidModel {
 
     /**
      * @param mixed $last_name
+     * @return $this
      */
     public function setLastName($last_name)
     {
         $this->last_name = $last_name;
+        return $this;
     }
 
     /**
@@ -59,10 +61,12 @@ class ShippingDetails extends RapidModel {
 
     /**
      * @param mixed $shipping_method
+     * @return $this
      */
     public function setShippingMethod($shipping_method)
     {
         $this->shipping_method = $shipping_method;
+        return $this;
     }
 
     /**
@@ -75,6 +79,7 @@ class ShippingDetails extends RapidModel {
 
     /**
      * @param mixed $shipping_address
+     * @return $this
      */
     public function setShippingAddress($shipping_address)
     {
@@ -83,6 +88,7 @@ class ShippingDetails extends RapidModel {
         }else{
             $this->shipping_address = new Address($shipping_address);
         }
+        return $this;
     }
 
     /**
@@ -95,10 +101,12 @@ class ShippingDetails extends RapidModel {
 
     /**
      * @param mixed $email
+     * @return $this
      */
     public function setEmail($email)
     {
         $this->email = $email;
+        return $this;
     }
 
     /**
@@ -111,10 +119,12 @@ class ShippingDetails extends RapidModel {
 
     /**
      * @param mixed $phone
+     * @return $this
      */
     public function setPhone($phone)
     {
         $this->phone = $phone;
+        return $this;
     }
 
     /**
@@ -127,9 +137,11 @@ class ShippingDetails extends RapidModel {
 
     /**
      * @param mixed $fax
+     * @return $this
      */
     public function setFax($fax)
     {
         $this->fax = $fax;
+        return $this;
     }
 }

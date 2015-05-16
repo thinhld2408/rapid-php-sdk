@@ -3,8 +3,6 @@
 /**
  * PHP version 5
  *
- * @category   CategoryName
- * @package    PackageName
  * @author     Dzung Tran <dzung.tt@outlook.com>
  * @license    http://www.opensource.org/licenses/bsd-license.php BSD License
  * @version    1.0.0
@@ -27,10 +25,12 @@ class Refund extends RapidModel {
 
     /**
      * @param mixed $customer
+     * @return $this
      */
     public function setCustomer($customer)
     {
         $this->customer = $customer;
+        return $this;
     }
 
     /**
@@ -43,6 +43,7 @@ class Refund extends RapidModel {
 
     /**
      * @param mixed $shipping_details
+     * @return $this
      */
     public function setShippingDetails($shipping_details)
     {
@@ -51,6 +52,7 @@ class Refund extends RapidModel {
         }else{
             $this->shipping_details = new ShippingDetails($shipping_details);
         }
+        return $this;
     }
 
     /**
@@ -63,6 +65,7 @@ class Refund extends RapidModel {
 
     /**
      * @param mixed $refund_details
+     * @return $this
      */
     public function setRefundDetails(RefundDetails $refund_details)
     {
@@ -71,6 +74,7 @@ class Refund extends RapidModel {
         }else{
             $this->refund_details = new RefundDetails($refund_details);
         }
+        return $this;
     }
 
     /**
@@ -83,14 +87,20 @@ class Refund extends RapidModel {
 
     /**
      * @param array $line_items
+     * @return $this
      */
     public function setLineItems($line_items)
     {
-        $this->line_items = $line_items;
+        if(count($line_items) > 0){
+            foreach($line_items as $item){
+                $this->line_items[] = new LineItem($item);
+            }
+        }
+        return $this;
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     public function getOptions()
     {
@@ -98,11 +108,13 @@ class Refund extends RapidModel {
     }
 
     /**
-     * @param mixed $options
+     * @param array $options
+     * @return $this
      */
     public function setOptions($options)
     {
         $this->options = $options;
+        return $this;
     }
 
     /**
@@ -115,10 +127,12 @@ class Refund extends RapidModel {
 
     /**
      * @param mixed $device_ID
+     * @return $this
      */
     public function setDeviceID($device_ID)
     {
         $this->device_ID = $device_ID;
+        return $this;
     }
 
     /**
@@ -131,10 +145,12 @@ class Refund extends RapidModel {
 
     /**
      * @param mixed $partner_ID
+     * @return $this
      */
     public function setPartnerID($partner_ID)
     {
         $this->partner_ID = $partner_ID;
+        return $this;
     }
 
 }

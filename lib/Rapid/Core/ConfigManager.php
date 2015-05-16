@@ -34,10 +34,10 @@ class ConfigManager
     private function __construct()
     {
         if (defined('RAPID_CONFIG_PATH')) {
-            $configFile = constant('RAPID_CONFIG_PATH') . '/config.ini';
+            $configFile = constant('RAPID_CONFIG_PATH') . '/sdkconfig.ini';
         } else {
             $configFile = implode(DIRECTORY_SEPARATOR,
-                array(dirname(__FILE__), "..", "config", "config.ini"));
+                array(dirname(__FILE__), "..", "config", "sdkconfig.ini"));
         }
         if (file_exists($configFile)) {
             $this->addConfigFromIni($configFile);

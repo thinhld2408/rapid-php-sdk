@@ -3,8 +3,6 @@
 /**
  * PHP version 5
  *
- * @category   CategoryName
- * @package    PackageName
  * @author     Dzung Tran <dzung.tt@outlook.com>
  * @license    http://www.opensource.org/licenses/bsd-license.php BSD License
  * @version    1.0.0
@@ -27,10 +25,12 @@ class VerificationResult extends RapidModel {
 
     /**
      * @param mixed $CVN
+     * @return $this
      */
     public function setCVN($CVN)
     {
         $this->CVN = $CVN;
+        return $this;
     }
 
     /**
@@ -43,10 +43,12 @@ class VerificationResult extends RapidModel {
 
     /**
      * @param mixed $address
+     * @return $this
      */
     public function setAddress($address)
     {
         $this->address = $address;
+        return $this;
     }
 
     /**
@@ -59,10 +61,12 @@ class VerificationResult extends RapidModel {
 
     /**
      * @param mixed $email
+     * @return $this
      */
     public function setEmail($email)
     {
         $this->email = $email;
+        return $this;
     }
 
     /**
@@ -75,10 +79,12 @@ class VerificationResult extends RapidModel {
 
     /**
      * @param mixed $mobile
+     * @return $this
      */
     public function setMobile($mobile)
     {
         $this->mobile = $mobile;
+        return $this;
     }
 
     /**
@@ -91,10 +97,12 @@ class VerificationResult extends RapidModel {
 
     /**
      * @param mixed $phone
+     * @return $this
      */
     public function setPhone($phone)
     {
         $this->phone = $phone;
+        return $this;
     }
 
     /**
@@ -107,10 +115,12 @@ class VerificationResult extends RapidModel {
 
     /**
      * @param mixed $beagle_email
+     * @return $this
      */
     public function setBeagleEmail($beagle_email)
     {
         $this->beagle_email = $beagle_email;
+        return $this;
     }
 
     /**
@@ -123,9 +133,11 @@ class VerificationResult extends RapidModel {
 
     /**
      * @param mixed $beagle_phone
+     * @return $this
      */
     public function setBeaglePhone($beagle_phone)
     {
         $this->beagle_phone = $beagle_phone;
+        return $this;
     }
 }
