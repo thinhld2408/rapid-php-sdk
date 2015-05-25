@@ -14,14 +14,14 @@ namespace Rapid\Type\Enumerated;
 
 class ShippingMethod
 {
-    const UNKNOWN = 'unknown';
-    const LOW_COST = 'low-cost';
-    const DESIGNATED_BY_CUSTOMER = 'designated-by-customer';
-    const INTERNATIONAL = 'international';
-    const MILITARY = 'military';
-    const NEXT_DAY = 'next-day';
-    const STORE_PICKUP = 'store-pickup';
-    const TWO_DAY_SERVICE = 'two-day-service';
-    const THREE_DAY_SERVICE = 'three-day-service';
-    const OTHER = 'other';
+    const UNKNOWN = 'Unknown';
+    const LOW_COST = 'LowCost';
+    const DESIGNATED_BY_CUSTOMER = 'DesignatedByCustomer';
+    const INTERNATIONAL = 'International';
+    const MILITARY = 'Military';
+    const NEXT_DAY = 'NextDay';
+    const STORE_PICKUP = 'StorePickup';
+    const TWO_DAY_SERVICE = 'TwoDayService';
+    const THREE_DAY_SERVICE = 'ThreeDayService';
+    const OTHER = 'Other';
 }

@@ -14,11 +14,11 @@ namespace Rapid\Type\Enumerated;
 
 class FraudAction
 {
-    const NOT_CHALLENGED    = 'not-challenged';
-    const ALLOW             = 'allow';
-    const REVIEW            = 'review';
-    const PRE_AUTH          = 'pre-auth';
-    const PROCESSED         = 'processed';
-    const APPROVED          = 'approved';
-    const BLOCK             = 'block';
+    const NOT_CHALLENGED    = 'NotChallenged';
+    const ALLOW             = 'Allow';
+    const REVIEW            = 'Review';
+    const PRE_AUTH          = 'PreAuth';
+    const PROCESSED         = 'Processed';
+    const APPROVED          = 'Approved';
+    const BLOCK             = 'Block';
 }

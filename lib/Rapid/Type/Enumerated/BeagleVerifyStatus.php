@@ -14,8 +14,8 @@ namespace Rapid\Type\Enumerated;
 
 class BeagleVerifyStatus
 {
-    const NOT_VERIFIED = 'not-verified';
-    const ATTEMPTED = 'attempted';
-    const VERIFIED = 'verified';
-    const FAILED = 'failed';
+    const NOT_VERIFIED = 'NotVerified';
+    const ATTEMPTED = 'Attempted';
+    const VERIFIED = 'Verified';
+    const FAILED = 'Failed';
 }

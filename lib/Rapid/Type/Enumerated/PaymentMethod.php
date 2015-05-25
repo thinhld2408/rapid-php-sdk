@@ -18,4 +18,10 @@ class PaymentMethod {
     const TRANSPARENT_REDIRECT = 'transparent-redirect';
     const WALLET = 'WALLET';
     const AUTHORISATION = 'authorisation';
+
+    const PROCESS_PAYMENT = 'ProcessPayment';
+    const AUTHORISE = 'Authorise';
+    const TOKEN_PAYMENT = 'TokenPayment';
+    const CREATE_TOKEN_CUSTOMER = 'CreateTokenCustomer';
+    const UPDATE_TOKEN_CUSTOMER = 'UpdateTokenCustomer';
 }

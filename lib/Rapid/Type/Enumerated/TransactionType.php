@@ -13,7 +13,7 @@ namespace Rapid\Type\Enumerated;
 
 
 class TransactionType {
-    const PURCHASE = 'purchase';
-    const RECURRING = 'recurring';
-    const MOTO = 'moto';
+    const PURCHASE = 'Purchase';
+    const RECURRING = 'Recurring';
+    const MOTO = 'MOTO';
 }

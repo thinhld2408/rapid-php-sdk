@@ -14,7 +14,7 @@ namespace Rapid\Type\Enumerated;
 
 class VerifyStatus
 {
-    const UNCHECKED = 'unchecked';
-    const VALID = 'valid';
-    const INVALID = 'invalid';
+    const UNCHECKED = 'Unchecked';
+    const VALID = 'Valid';
+    const INVALID = 'Invalid';
 }
