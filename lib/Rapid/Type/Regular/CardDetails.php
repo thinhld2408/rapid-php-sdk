@@ -15,6 +15,22 @@ use Rapid\Common\RapidModel;
 
 class CardDetails extends RapidModel {
 
+    public function __construct($data = null)
+    {
+        switch (gettype($data)) {
+            case "NULL":
+                break;
+            case "string":
+                JsonValidator::validate($data);
+                $this->fromJson($data);
+                break;
+            case "array":
+                $this->fromArray($data);
+                break;
+            default:
+        }
+    }
+
     /**
      * @return string
      */

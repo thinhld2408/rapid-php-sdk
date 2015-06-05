@@ -16,7 +16,7 @@ use Rapid\Security\Cipher;
 /**
  * Class OAuthTokenCredential
  */
-class OAuthTokenCredential extends ResourceModel
+class OAuthTokenCredential extends ResourceModel implements ICredential
 {
 
     public static $CACHE_PATH = '/../../../var/auth.cache';
@@ -251,6 +251,7 @@ class OAuthTokenCredential extends ResourceModel
      * Generates a new access token
      *
      * @param array $config
+     * @param null $refreshToken
      * @return null
      * @throws ConnectionException
      */
@@ -302,5 +303,11 @@ class OAuthTokenCredential extends ResourceModel
     public function decrypt($data)
     {
         return $this->cipher->decrypt($data);
+    }
+
+    function getAuthHandler()
+    {
+        // TODO: Implement getAuthHandler() method.
+        return self::$AUTH_HANDLER;
     }
 }

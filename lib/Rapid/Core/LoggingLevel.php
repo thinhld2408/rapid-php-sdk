@@ -10,17 +10,17 @@ class LoggingLevel
 {
 
     // DEBUG Logging Level
-    const DEBUG = 4;
+    const DEBUG = 'DEBUG';
 
     // FINE Logging Level
-    const FINE = 3;
+    const FINE = 'FINE';
 
     // INFO Logging Level
-    const INFO = 2;
+    const INFO = 'INFO';
 
     // WARN Logging Level
-    const WARN = 1;
+    const WARN = 'WARN';
 
     // ERROR Logging Level
-    const ERROR = 0;
+    const ERROR = 'ERROR';
 }

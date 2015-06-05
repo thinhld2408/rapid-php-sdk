@@ -61,7 +61,7 @@ class CredentialManager
     public static function getInstance($config = null)
     {
         if (!self::$instance) {
-            self::$instance = new self($config == null ? RapidConfigManager::getInstance()->getConfigHashmap() : $config);
+            self::$instance = new self($config == null ? ConfigManager::getInstance()->getConfigHashmap() : $config);
         }
         return self::$instance;
     }
@@ -96,13 +96,15 @@ class CredentialManager
         $key = $prefix . $suffix;
         $userName = null;
         while (in_array($key, $arrayPartKeys)) {
-            if (isset($credArr[$key . ".ClientId"]) && isset($credArr[$key . ".ClientId"])) {
+            if (isset($credArr[$key . ".api_key"]) && isset($credArr[$key . ".api_key"])) {
                 $userName = $key;
                 $this->credentialHashmap[$userName] = new OAuthTokenCredential(
-                    $credArr[$key . ".ClientId"],
-                    $credArr[$key . ".ClientSecret"]
+                    $credArr[$key . ".api_key"],
+                    $credArr[$key . ".api_password"]
                 );
             }
+
+            /*
             if ($userName && $this->defaultAccountName == null) {
                 if (array_key_exists($key . '.UserName', $credArr)) {
                     $this->defaultAccountName = $credArr[$key . '.UserName'];
@@ -110,6 +112,8 @@ class CredentialManager
                     $this->defaultAccountName = $key;
                 }
             }
+            */
+
             $suffix++;
             $key = $prefix . $suffix;
         }

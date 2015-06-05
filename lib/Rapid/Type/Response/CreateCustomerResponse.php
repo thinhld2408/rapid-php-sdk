@@ -10,34 +10,16 @@
 
 namespace Rapid\Type\Response;
 
-use Rapid\Common\RapidModel;
 use Rapid\Type\Regular\Customer;
+use Rapid\Type\Regular\PaymentDetails;
 
-class CreateCustomerResponse extends RapidModel
+/**
+ * Class CreateCustomerResponse
+ * Follows https://eway.io/api-v3/#token-payments
+ * @package Rapid\Type\Response
+ */
+class CreateCustomerResponse extends AbstractResponse
 {
-    var $errors;
-    var $customer;
-    var $shared_payment_url;
-    var $form_action_url;
-    var $access_code;
-
-    /**
-     * @return mixed
-     */
-    public function getErrors()
-    {
-        return $this->errors;
-    }
-
-    /**
-     * @param mixed $errors
-     * @return $this
-     */
-    public function setErrors($errors)
-    {
-        $this->errors = $errors;
-        return $this;
-    }
 
     /**
      * @return mixed
@@ -53,7 +35,6 @@ class CreateCustomerResponse extends RapidModel
      */
     public function setCustomer($customer)
     {
-        $this->customer = $customer;
         if ($customer instanceof Customer) {
             $this->customer = $customer;
         } else {
@@ -114,5 +95,75 @@ class CreateCustomerResponse extends RapidModel
     {
         $this->access_code = $access_code;
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCompleteCheckoutURL()
+    {
+        return $this->complete_checkout_uRL;
+    }
+
+    /**
+     * @param mixed $complete_checkout_uRL
+     */
+    public function setCompleteCheckoutURL($complete_checkout_uRL)
+    {
+        $this->complete_checkout_uRL = $complete_checkout_uRL;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPayment()
+    {
+        return $this->payment;
+    }
+
+    /**
+     * @param mixed $payment
+     * @return $this
+     */
+    public function setPayment($payment)
+    {
+        if ($payment instanceof PaymentDetails) {
+            $this->payment = $payment;
+        } else {
+            $this->payment = new PaymentDetails($payment);
+        }
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBeagleScore()
+    {
+        return $this->beagle_score;
+    }
+
+    /**
+     * @param mixed $beagle_score
+     */
+    public function setBeagleScore($beagle_score)
+    {
+        $this->beagle_score = $beagle_score;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTransactionType()
+    {
+        return $this->transaction_type;
+    }
+
+    /**
+     * @param mixed $transaction_type
+     */
+    public function setTransactionType($transaction_type)
+    {
+        $this->transaction_type = $transaction_type;
     }
 }

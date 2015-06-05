@@ -11,9 +11,7 @@
 
 namespace Rapid\Type\Regular;
 
-use Rapid\Common\RapidModel;
-
-class Customer extends RapidModel {
+class Customer extends Address {
 
     /**
      * @return string
@@ -142,28 +140,6 @@ class Customer extends RapidModel {
     }
 
     /**
-     * @return Address
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
-     * @param mixed $address
-     * @return $this
-     */
-    public function setAddress($address)
-    {
-        if($address instanceof Address){
-            $this->address = $address;
-        }else{
-            $this->address = new Address($address);
-        }
-        return $this;
-    }
-
-    /**
      * @return mixed
      */
     public function getPhone()
@@ -236,24 +212,6 @@ class Customer extends RapidModel {
     }
 
     /**
-     * @return mixed
-     */
-    public function getComment()
-    {
-        return $this->comment;
-    }
-
-    /**
-     * @param mixed $comment
-     * @return $this
-     */
-    public function setComment($comment)
-    {
-        $this->comment = $comment;
-        return $this;
-    }
-
-    /**
      * @return CardDetails
      */
     public function getCardDetails()
@@ -267,11 +225,174 @@ class Customer extends RapidModel {
      */
     public function setCardDetails($card_details)
     {
-        if($card_details instanceof CardDetails){
+        $class = 'Rapid\Type\Regular\CardDetails';
+        if($card_details instanceof $class){
             $this->card_details = $card_details;
         }else{
             $this->card_details = new CardDetails($card_details);
         }
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param mixed $email
+     * @return $this
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCardNumber()
+    {
+        return $this->card_number;
+    }
+
+    /**
+     * @param mixed $card_number
+     */
+    public function setCardNumber($card_number)
+    {
+        $this->card_number = $card_number;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCardStartMonth()
+    {
+        return $this->card_start_month;
+    }
+
+    /**
+     * @param mixed $card_start_month
+     */
+    public function setCardStartMonth($card_start_month)
+    {
+        $this->card_start_month = $card_start_month;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCardStartYear()
+    {
+        return $this->card_start_year;
+    }
+
+    /**
+     * @param mixed $card_start_year
+     */
+    public function setCardStartYear($card_start_year)
+    {
+        $this->card_start_year = $card_start_year;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCardIssueNumber()
+    {
+        return $this->card_issue_number;
+    }
+
+    /**
+     * @param mixed $card_issue_number
+     */
+    public function setCardIssueNumber($card_issue_number)
+    {
+        $this->card_issue_number = $card_issue_number;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCardName()
+    {
+        return $this->card_name;
+    }
+
+    /**
+     * @param mixed $card_name
+     */
+    public function setCardName($card_name)
+    {
+        $this->card_name = $card_name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCardExpiryMonth()
+    {
+        return $this->card_expiry_month;
+    }
+
+    /**
+     * @param mixed $card_expiry_month
+     */
+    public function setCardExpiryMonth($card_expiry_month)
+    {
+        $this->card_expiry_month = $card_expiry_month;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCardExpiryYear()
+    {
+        return $this->card_expiry_year;
+    }
+
+    /**
+     * @param mixed $card_expiry_year
+     */
+    public function setCardExpiryYear($card_expiry_year)
+    {
+        $this->card_expiry_year = $card_expiry_year;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsActive()
+    {
+        return $this->is_active;
+    }
+
+    /**
+     * @param mixed $is_active
+     */
+    public function setIsActive($is_active)
+    {
+        $this->is_active = $is_active;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @param mixed $comments
+     */
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
     }
 }

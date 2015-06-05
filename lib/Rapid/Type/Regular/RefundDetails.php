@@ -6,32 +6,15 @@
  * @author     Dzung Tran <dzung.tt@outlook.com>
  * @license    http://www.opensource.org/licenses/bsd-license.php BSD License
  * @version    1.0.0
- * @description 
+ * @description
  */
 
 namespace Rapid\Type\Regular;
 
 use Rapid\Common\RapidModel;
 
-class RefundDetails extends RapidModel {
-
-    /**
-     * @return mixed
-     */
-    public function getOriginalTransactionID()
-    {
-        return $this->original_transaction_ID;
-    }
-
-    /**
-     * @param mixed $original_transaction_ID
-     * @return $this
-     */
-    public function setOriginalTransactionID($original_transaction_ID)
-    {
-        $this->original_transaction_ID = $original_transaction_ID;
-        return $this;
-    }
+class RefundDetails extends RapidModel
+{
 
     /**
      * @return mixed
@@ -121,5 +104,37 @@ class RefundDetails extends RapidModel {
     {
         $this->currency_code = $currency_code;
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOriginalTransactionID()
+    {
+        return $this->original_transaction_iD;
+    }
+
+    /**
+     * @param mixed $original_transaction_iD
+     */
+    public function setOriginalTransactionID($original_transaction_iD)
+    {
+        $this->original_transaction_iD = $original_transaction_iD;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTransactionID()
+    {
+        return $this->transaction_iD;
+    }
+
+    /**
+     * @param mixed $transaction_iD
+     */
+    public function setTransactionID($transaction_iD)
+    {
+        $this->transaction_iD = $transaction_iD;
     }
 }

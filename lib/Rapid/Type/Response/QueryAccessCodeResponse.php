@@ -12,25 +12,31 @@ namespace Rapid\Type\Response;
 
 use Rapid\Type\Regular\Customer;
 use Rapid\Type\Regular\PaymentDetails;
+use Rapid\Type\Regular\VerificationResult;
 
-class CreateTransactionResponse extends AbstractResponse
+class QueryAccessCodeResponse extends AbstractResponse
 {
+    protected $customers = array();
 
     /**
      * @return mixed
      */
-    public function getSharedPaymentUrl()
+    public function getCustomers()
     {
-        return $this->shared_payment_url;
+        return $this->customers;
     }
 
     /**
-     * @param mixed $shared_payment_url
+     * @param mixed $customers
      * @return $this
      */
-    public function setSharedPaymentUrl($shared_payment_url)
+    public function setCustomers($customers)
     {
-        $this->shared_payment_url = $shared_payment_url;
+        if (count($customers) > 0) {
+            foreach ($customers as $customer) {
+                $this->customers[] = new Customer($customer);
+            }
+        }
         return $this;
     }
 
@@ -71,19 +77,25 @@ class CreateTransactionResponse extends AbstractResponse
     }
 
     /**
-     * @return mixed
+     * @return PaymentDetails
      */
-    public function getBeagleScore()
+    public function getPayment()
     {
-        return $this->beagle_score;
+        return $this->payment;
     }
 
     /**
-     * @param mixed $beagle_score
+     * @param array $payment_details
+     * @return $this
      */
-    public function setBeagleScore($beagle_score)
+    public function setPayment($payment_details)
     {
-        $this->beagle_score = $beagle_score;
+        if ($payment_details instanceof PaymentDetails) {
+            $this->payment = $payment_details;
+        } else {
+            $this->payment = new PaymentDetails($payment_details);
+        }
+        return $this;
     }
 
     /**
@@ -153,62 +165,64 @@ class CreateTransactionResponse extends AbstractResponse
     /**
      * @return mixed
      */
-    public function getCustomer()
+    public function getBeagleScore()
     {
-        return $this->customer;
+        return $this->beagle_score;
     }
 
     /**
-     * @param mixed $customer
-     * @return $this
+     * @param mixed $beagle_score
      */
-    public function setCustomer($customer)
+    public function setBeagleScore($beagle_score)
     {
-
-        if ($customer instanceof Customer) {
-            $this->customer = $customer;
-        } else {
-            $this->customer = new Customer($customer);
-        }
-        return $this;
+        $this->beagle_score = $beagle_score;
     }
 
     /**
      * @return mixed
      */
-    public function getPayment()
+    public function getOptions()
     {
-        return $this->payment;
+        return $this->options;
     }
 
     /**
-     * @param mixed $payment
-     * @return $this
+     * @param mixed $options
      */
-    public function setPayment($payment)
+    public function setOptions($options)
     {
-        if ($payment instanceof PaymentDetails) {
-            $this->payment = $payment;
-        } else {
-            $this->payment = new PaymentDetails($payment);
-        }
-        return $this;
+        $this->options = $options;
     }
 
     /**
      * @return mixed
      */
-    public function getTransactionType()
+    public function getVerification()
     {
-        return $this->transaction_type;
+        return $this->verification;
     }
 
     /**
-     * @param mixed $transaction_type
+     * @return mixed
      */
-    public function setTransactionType($transaction_type)
+    public function getBeagleVerification()
     {
-        $this->transaction_type = $transaction_type;
+        return $this->beagle_verification;
+    }
+
+    /**
+     * @param mixed $verification
+     * @return $this
+     */
+    public function setBeagleVerification($verification)
+    {
+        $class = 'Rapid\Type\Regular\VerificationResult';
+        if ($verification instanceof $class) {
+            $this->beagle_verification = $verification;
+        } else {
+            $this->beagle_verification = new VerificationResult($verification);
+        }
+        return $this;
     }
 
 }

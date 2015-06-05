@@ -4,6 +4,7 @@ namespace Rapid\Validation;
 
 use Rapid\Common\RapidModel;
 use Rapid\Core\ConfigManager;
+use Rapid\Core\LoggingManager;
 use Rapid\Core\RapidLoggingManager;
 
 /**

@@ -13,11 +13,13 @@ namespace Rapid\Type\Enumerated;
 
 
 class PaymentMethod {
+    /*
     const DIRECT = 'direct';
     const RESPONSIVE_SHARE = 'responsive-shared';
     const TRANSPARENT_REDIRECT = 'transparent-redirect';
     const WALLET = 'WALLET';
     const AUTHORISATION = 'authorisation';
+    */
 
     const PROCESS_PAYMENT = 'ProcessPayment';
     const AUTHORISE = 'Authorise';

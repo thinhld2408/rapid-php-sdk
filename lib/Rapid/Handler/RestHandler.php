@@ -60,12 +60,14 @@ class RestHandler implements IHandler
                 throw new MissingCredentialException("Empty or invalid credentials passed");
             }
 
-            $credential = new OAuthTokenCredential($credValues['clientId'], $credValues['clientSecret']);
+            //$credential = new OAuthTokenCredential($credValues['api_key'], $credValues['api_password']);
         }
 
+        /*
         if ($credential == null || !($credential instanceof OAuthTokenCredential)) {
             throw new InvalidCredentialException("Invalid credentials passed");
         }
+        */
 
         $httpConfig->setUrl(
             rtrim(trim($this->_getEndpoint($config)), '/') .
@@ -103,11 +105,11 @@ class RestHandler implements IHandler
         if (isset($config['service.EndPoint'])) {
             return $config['service.EndPoint'];
         } else if (isset($config['mode'])) {
-            switch (strtoupper($config['mode'])) {
-                case 'SANDBOX':
+            switch (strtolower($config['mode'])) {
+                case Constants::MODE_SANDBOX:
                     return Constants::REST_SANDBOX_ENDPOINT;
                     break;
-                case 'LIVE':
+                case Constants::MODE_LIVE:
                     return Constants::REST_LIVE_ENDPOINT;
                     break;
                 default:
