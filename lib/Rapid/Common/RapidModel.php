@@ -10,26 +10,9 @@ use Rapid\Validation\ModelAccessorValidator;
  * Stores all member data in a Hashmap that enables easy
  * JSON encoding/decoding
  */
-class RapidModel {
+class RapidModel
+{
     private $_propMap = array();
-
-    /**
-     * OAuth Credentials to use for this call
-     *
-     * @var \Rapid\Auth\OAuthTokenCredential $credential
-     */
-    protected static $credential;
-
-    /**
-     * Sets Credential
-     *
-     * @deprecated Pass ApiContext to create/get methods instead
-     * @param \Rapid\Auth\OAuthTokenCredential $credential
-     */
-    public static function setCredential($credential)
-    {
-        self::$credential = $credential;
-    }
 
     /**
      * Default Constructor
@@ -66,7 +49,9 @@ class RapidModel {
     public static function getList($data)
     {
         // Return Null if Null
-        if ($data === null) { return null; }
+        if ($data === null) {
+            return null;
+        }
 
         if (is_a($data, get_class(new \stdClass()))) {
             //This means, root element is object
@@ -171,14 +156,15 @@ class RapidModel {
     {
         $ret = array();
         foreach ($param as $k => $v) {
+            $kc = $this->convertToCamelCase($k);
             if ($v instanceof RapidModel) {
-                $ret[$k] = $v->toArray();
+                $ret[$kc] = $v->toArray();
             } else if (sizeof($v) <= 0 && is_array($v)) {
-                $ret[$k] = array();
+                $ret[$kc] = array();
             } else if (is_array($v)) {
-                $ret[$k] = $this->_convertToArray($v);
+                $ret[$kc] = $this->_convertToArray($v);
             } else {
-                $ret[$k] = $v;
+                $ret[$kc] = $v;
             }
         }
         // If the array is empty, which means an empty object,
@@ -204,26 +190,31 @@ class RapidModel {
                 // If the value is an array, it means, it is an object after conversion
                 if (is_array($v)) {
                     // Determine the class of the object
-                    if (($clazz = ReflectionUtil::getPropertyClass(get_class($this), $k)) != null){
+                    if (($clazz = ReflectionUtil::getPropertyClass(get_class($this), $k)) != null) {
                         // If the value is an associative array, it means, its an object. Just make recursive call to it.
-                        if (empty($v)){
+                        if (empty($v)) {
                             if (ReflectionUtil::isPropertyClassArray(get_class($this), $k)) {
                                 // It means, it is an array of objects.
                                 $this->assignValue($k, array());
                                 continue;
                             }
-                            $o = new $clazz();
+                            //$o = new $clazz();
                             //$arr = array();
-                            $this->assignValue($k, $o);
-                        } elseif (ArrayUtil::isAssocArray($v)) {
+                            $this->assignValue($k, $v);
+                        } elseif (ArrayUtil::isAssocArray($v) && 'mixed' !== $clazz) {
                             /** @var self $o */
-                            $o = new $clazz();
-                            $o->fromArray($v);
-                            $this->assignValue($k, $o);
+                            if(class_exists($clazz)){
+                                $o = new $clazz();
+                                $o->fromArray($v);
+                                $this->assignValue($k, $o);
+                            }else{
+                                $this->assignValue($k, $v);
+                            }
                         } else {
                             // Else, value is an array of object/data
                             $arr = array();
                             // Iterate through each element in that array.
+                            /*
                             foreach ($v as $nk => $nv) {
                                 if (is_array($nv)) {
                                     $o = new $clazz();
@@ -232,8 +223,8 @@ class RapidModel {
                                 } else {
                                     $arr[$nk] = $nv;
                                 }
-                            }
-                            $this->assignValue($k, $arr);
+                            }*/
+                            $this->assignValue($k, $v);
                         }
                     } else {
                         $this->assignValue($k, $v);

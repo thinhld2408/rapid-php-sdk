@@ -11,9 +11,7 @@
 
 namespace Rapid\Type\Regular;
 
-use Rapid\Common\RapidModel;
-
-class ShippingDetails extends RapidModel {
+class ShippingDetails extends Address {
 
     /**
      * @return mixed
@@ -66,28 +64,6 @@ class ShippingDetails extends RapidModel {
     public function setShippingMethod($shipping_method)
     {
         $this->shipping_method = $shipping_method;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getShippingAddress()
-    {
-        return $this->shipping_address;
-    }
-
-    /**
-     * @param mixed $shipping_address
-     * @return $this
-     */
-    public function setShippingAddress($shipping_address)
-    {
-        if($shipping_address instanceof Address){
-            $this->shipping_address = $shipping_address;
-        }else{
-            $this->shipping_address = new Address($shipping_address);
-        }
         return $this;
     }
 

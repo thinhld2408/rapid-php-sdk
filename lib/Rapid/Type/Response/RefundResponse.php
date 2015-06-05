@@ -5,34 +5,16 @@
  * @author     Dzung Tran <dzung.tt@outlook.com>
  * @license    http://www.opensource.org/licenses/bsd-license.php BSD License
  * @version    1.0.0
- * @description 
+ * @description
  */
 
 namespace Rapid\Type\Response;
 
-use Rapid\Common\RapidModel;
-use Rapid\Type\Regular\Refund;
-use Rapid\Type\Regular\TransactionStatus;
+use Rapid\Type\Regular\Customer;
+use Rapid\Type\Regular\RefundDetails;
 
-class RefundResponse extends RapidModel {
-
-    /**
-     * @return mixed
-     */
-    public function getErrors()
-    {
-        return $this->errors;
-    }
-
-    /**
-     * @param mixed $errors
-     * @return $this
-     */
-    public function setErrors($errors)
-    {
-        $this->errors = $errors;
-        return $this;
-    }
+class RefundResponse extends AbstractResponse
+{
 
     /**
      * @return mixed
@@ -48,10 +30,10 @@ class RefundResponse extends RapidModel {
      */
     public function setRefund($refund)
     {
-        if ($refund instanceof Refund) {
+        if ($refund instanceof RefundDetails) {
             $this->refund = $refund;
         } else {
-            $this->refund = new Refund($refund);
+            $this->refund = new RefundDetails($refund);
         }
         return $this;
     }
@@ -59,21 +41,21 @@ class RefundResponse extends RapidModel {
     /**
      * @return mixed
      */
-    public function getTransactionStatus()
+    public function getCustomer()
     {
-        return $this->transaction_status;
+        return $this->customer;
     }
 
     /**
-     * @param mixed $transaction_status
+     * @param mixed $customer
      * @return $this
      */
-    public function setTransactionStatus($transaction_status)
+    public function setCustomer($customer)
     {
-        if ($transaction_status instanceof TransactionStatus) {
-            $this->transaction_status = $transaction_status;
+        if ($customer instanceof Customer) {
+            $this->customer = $customer;
         } else {
-            $this->transaction_status = new TransactionStatus($transaction_status);
+            $this->customer = new Customer($customer);
         }
         return $this;
     }

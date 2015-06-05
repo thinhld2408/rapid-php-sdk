@@ -107,11 +107,12 @@ class HttpConnection
         //Logging Each Headers for debugging purposes
         foreach ($this->getHttpHeaders() as $header) {
             //TODO: Strip out credentials and other secure info when logging.
-            // $this->logger->debug($header);
+            $this->logger->debug($header);
         }
 
         //Execute Curl Request
         $result = curl_exec($ch);
+
         //Retrieve Response Status
         $httpStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 

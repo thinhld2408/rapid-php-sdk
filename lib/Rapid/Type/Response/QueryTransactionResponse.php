@@ -5,16 +5,16 @@
  * @author     Dzung Tran <dzung.tt@outlook.com>
  * @license    http://www.opensource.org/licenses/bsd-license.php BSD License
  * @version    1.0.0
- * @description 
+ * @description
  */
 
 namespace Rapid\Type\Response;
 
-use Rapid\Common\RapidModel;
 use Rapid\Type\Regular\Transaction;
-use Rapid\Type\Regular\TransactionStatus;
 
-class QueryTransactionResponse extends RapidModel {
+class QueryTransactionResponse extends AbstractResponse
+{
+    protected $transactions = array();
 
     /**
      * @return mixed
@@ -37,64 +37,29 @@ class QueryTransactionResponse extends RapidModel {
     /**
      * @return mixed
      */
-    public function getTransactionStatus()
+    public function getTransactions()
     {
-        return $this->transaction_status;
+        return $this->transactions;
     }
 
     /**
-     * @param mixed $transaction_status
+     * @param $transactions
      * @return $this
+     * @internal param mixed $transaction
      */
-    public function setTransactionStatus($transaction_status)
+    public function setTransactions($transactions)
     {
-        $this->transaction_status = $transaction_status;
-        if ($transaction_status instanceof TransactionStatus) {
-            $this->transaction_status = $transaction_status;
-        } else {
-            $this->transaction_status = new TransactionStatus($transaction_status);
+        $class = 'Rapid\Type\Regular\Transaction';
+        if(count($transactions) > 0){
+            foreach($transactions as $transaction){
+                if ($transaction instanceof $class) {
+                    $this->transactions[] = $transaction;
+                } else {
+                    $this->transactions[] = new Transaction($transaction);
+                }
+            }
         }
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getTransaction()
-    {
-        return $this->transaction;
-    }
-
-    /**
-     * @param mixed $transaction
-     * @return $this
-     */
-    public function setTransaction($transaction)
-    {
-        $this->transaction = $transaction;
-        if ($transaction instanceof Transaction) {
-            $this->transaction = $transaction;
-        } else {
-            $this->transaction = new Transaction($transaction);
-        }
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getErrors()
-    {
-        return $this->errors;
-    }
-
-    /**
-     * @param mixed $errors
-     * @return $this
-     */
-    public function setErrors($errors)
-    {
-        $this->errors = $errors;
-        return $this;
-    }
 }

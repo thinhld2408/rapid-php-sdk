@@ -6,14 +6,16 @@
  * @author     Dzung Tran <dzung.tt@outlook.com>
  * @license    http://www.opensource.org/licenses/bsd-license.php BSD License
  * @version    1.0.0
- * @description 
+ * @description
  */
 
 namespace Rapid\Type\Regular;
 
 use Rapid\Common\RapidModel;
 
-class Refund extends RapidModel {
+class Refund extends RapidModel
+{
+    protected $line_items = array();
 
     /**
      * @return mixed
@@ -30,13 +32,18 @@ class Refund extends RapidModel {
     public function setCustomer($customer)
     {
         $this->customer = $customer;
+        if ($customer instanceof Customer) {
+            $this->customer = $customer;
+        } else {
+            $this->customer = new Customer($customer);
+        }
         return $this;
     }
 
     /**
      * @return mixed
      */
-    public function getShippingDetails()
+    public function getShippingAddress()
     {
         return $this->shipping_details;
     }
@@ -45,11 +52,11 @@ class Refund extends RapidModel {
      * @param mixed $shipping_details
      * @return $this
      */
-    public function setShippingDetails($shipping_details)
+    public function setShippingAddress($shipping_details)
     {
-        if($shipping_details instanceof ShippingDetails){
+        if ($shipping_details instanceof ShippingDetails) {
             $this->shipping_details = $shipping_details;
-        }else{
+        } else {
             $this->shipping_details = new ShippingDetails($shipping_details);
         }
         return $this;
@@ -58,21 +65,21 @@ class Refund extends RapidModel {
     /**
      * @return mixed
      */
-    public function getRefundDetails()
+    public function getRefund()
     {
-        return $this->refund_details;
+        return $this->refund;
     }
 
     /**
      * @param mixed $refund_details
      * @return $this
      */
-    public function setRefundDetails(RefundDetails $refund_details)
+    public function setRefund($refund_details)
     {
-        if($refund_details instanceof RefundDetails){
-            $this->refund_details = $refund_details;
-        }else{
-            $this->refund_details = new RefundDetails($refund_details);
+        if ($refund_details instanceof RefundDetails) {
+            $this->refund = $refund_details;
+        } else {
+            $this->refund = new RefundDetails($refund_details);
         }
         return $this;
     }
@@ -80,7 +87,7 @@ class Refund extends RapidModel {
     /**
      * @return array
      */
-    public function getLineItems()
+    public function getItems()
     {
         return $this->line_items;
     }
@@ -89,10 +96,10 @@ class Refund extends RapidModel {
      * @param array $line_items
      * @return $this
      */
-    public function setLineItems($line_items)
+    public function setItems($line_items)
     {
-        if(count($line_items) > 0){
-            foreach($line_items as $item){
+        if (count($line_items) > 0) {
+            foreach ($line_items as $item) {
                 $this->line_items[] = new LineItem($item);
             }
         }
@@ -151,6 +158,22 @@ class Refund extends RapidModel {
     {
         $this->partner_ID = $partner_ID;
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCustomerIP()
+    {
+        return $this->customer_iP;
+    }
+
+    /**
+     * @param mixed $customer_iP
+     */
+    public function setCustomerIP($customer_iP)
+    {
+        $this->customer_iP = $customer_iP;
     }
 
 }

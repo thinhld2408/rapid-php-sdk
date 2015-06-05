@@ -103,4 +103,4 @@ class ResourceModel extends RapidModel implements IResource
         $json = $restCall->execute($handlers, $url, $method, $payLoad, $headers);
         return $json;
     }
-} 
+}

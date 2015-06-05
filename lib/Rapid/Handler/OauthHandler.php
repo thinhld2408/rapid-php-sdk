@@ -13,7 +13,7 @@ use Rapid\Exception\InvalidCredentialException;
 use Rapid\Exception\MissingCredentialException;
 
 /**
- * Class OauthHandler
+ * Class OauthHandler not use
  */
 class OauthHandler implements IHandler
 {
@@ -36,8 +36,8 @@ class OauthHandler implements IHandler
 
     /**
      * @param HttpConfig $httpConfig
-     * @param string                    $request
-     * @param mixed                     $options
+     * @param string $request
+     * @param mixed $options
      * @return mixed|void
      * @throws ConfigurationException
      * @throws InvalidCredentialException
@@ -70,9 +70,8 @@ class OauthHandler implements IHandler
      * Get HttpConfiguration object for OAuth API
      *
      * @param array $config
-     *
      * @return HttpConfig
-     * @throws \Rapid\Exception\ConfigurationException
+     * @throws ConfigurationException
      */
     private static function _getEndpoint($config)
     {
@@ -96,8 +95,9 @@ class OauthHandler implements IHandler
             $baseEndpoint = Constants::REST_SANDBOX_ENDPOINT;
         }
 
-        $baseEndpoint = rtrim(trim($baseEndpoint), '/') . "/v1/oauth2/token";
+        $baseEndpoint = rtrim(trim($baseEndpoint), '/') . "/oauth2/token";
 
         return $baseEndpoint;
     }
 }
+

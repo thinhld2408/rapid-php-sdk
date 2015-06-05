@@ -6,46 +6,17 @@
  * @author     Dzung Tran <dzung.tt@outlook.com>
  * @license    http://www.opensource.org/licenses/bsd-license.php BSD License
  * @version    1.0.0
- * @description 
+ * @description
  */
 
 namespace Rapid\Type\Regular;
 
 use Rapid\Common\RapidModel;
+use Rapid\Type\Enumerated\PaymentMethod;
 
-class Transaction extends RapidModel {
-
-    /**
-     * @return mixed
-     */
-    public function getTransactionType()
-    {
-        return $this->transaction_type;
-    }
-
-    /**
-     * @param mixed $transaction_type
-     */
-    public function setTransactionType($transaction_type)
-    {
-        $this->transaction_type = $transaction_type;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getCapture()
-    {
-        return $this->capture;
-    }
-
-    /**
-     * @param bool $capture
-     */
-    public function setCapture($capture)
-    {
-        $this->capture = $capture;
-    }
+class Transaction extends RapidModel
+{
+    var $items = array();
 
     /**
      * @return Customer
@@ -72,7 +43,7 @@ class Transaction extends RapidModel {
     /**
      * @return ShippingDetails
      */
-    public function getShippingDetails()
+    public function getShippingAddress()
     {
         return $this->shipping_details;
     }
@@ -81,12 +52,12 @@ class Transaction extends RapidModel {
      * @param mixed $shipping_details
      * @return $this
      */
-    public function setShippingDetails($shipping_details)
+    public function setShippingAddress($shipping_details)
     {
         if ($shipping_details instanceof ShippingDetails) {
-            $this->shipping_details = $shipping_details;
+            $this->shipping_address = $shipping_details;
         } else {
-            $this->shipping_details = new ShippingDetails($shipping_details);
+            $this->shipping_address = new ShippingDetails($shipping_details);
         }
         return $this;
     }
@@ -94,21 +65,21 @@ class Transaction extends RapidModel {
     /**
      * @return PaymentDetails
      */
-    public function getPaymentDetails()
+    public function getPayment()
     {
-        return $this->payment_details;
+        return $this->payment;
     }
 
     /**
      * @param array $payment_details
      * @return $this
      */
-    public function setPaymentDetails($payment_details)
+    public function setPayment($payment_details)
     {
         if ($payment_details instanceof PaymentDetails) {
-            $this->payment_details = $payment_details;
+            $this->payment = $payment_details;
         } else {
-            $this->payment_details = new PaymentDetails($payment_details);
+            $this->payment = new PaymentDetails($payment_details);
         }
         return $this;
     }
@@ -116,20 +87,20 @@ class Transaction extends RapidModel {
     /**
      * @return array
      */
-    public function getLineItems()
+    public function getItems()
     {
-        return $this->line_items;
+        return $this->items;
     }
 
     /**
      * @param array $line_items
      * @return $this
      */
-    public function setLineItems($line_items)
+    public function setItems($line_items)
     {
-        if(count($line_items) > 0){
-            foreach($line_items as $item){
-                $this->line_items[] = new LineItem($item);
+        if (count($line_items) > 0) {
+            foreach ($line_items as $item) {
+                $this->items[] = new LineItem($item);
             }
         }
         return $this;
@@ -278,4 +249,294 @@ class Transaction extends RapidModel {
     {
         $this->checkout_payment = $checkout_payment;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getMethod()
+    {
+        return $this->method;
+    }
+
+    /**
+     * @param mixed $method
+     */
+    public function setMethod($method)
+    {
+        $this->method = $method;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCustomerIP()
+    {
+        return $this->customer_ip;
+    }
+
+    /**
+     * @param mixed $customer_ip
+     */
+    public function setCustomerIP($customer_ip)
+    {
+        $this->customer_ip = $customer_ip;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCustomerNote()
+    {
+        return $this->customer_note;
+    }
+
+    /**
+     * @param mixed $customer_note
+     */
+    public function setCustomerNote($customer_note)
+    {
+        $this->customer_note = $customer_note;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBeagleVerification()
+    {
+        return $this->beagle_verification;
+    }
+
+    /**
+     * @param mixed $beagle_verification
+     * @return $this
+     */
+    public function setBeagleVerification($beagle_verification)
+    {
+        $this->beagle_verification = $beagle_verification;
+        $class = 'Rapid\Type\Regular\VerificationResult';
+        if ($beagle_verification instanceof $class) {
+            $this->beagle_verification = $beagle_verification;
+        } else {
+            $this->beagle_verification = new VerificationResult($beagle_verification);
+        }
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVerification()
+    {
+        return $this->verification;
+    }
+
+    /**
+     * @param mixed $verification
+     * @return $this
+     */
+    public function setVerification($verification)
+    {
+        $class = 'Rapid\Type\Regular\VerificationResult';
+        if ($verification instanceof $class) {
+            $this->verification = $verification;
+        } else {
+            $this->verification = new VerificationResult($verification);
+        }
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBeagleScore()
+    {
+        return $this->beagle_score;
+    }
+
+    /**
+     * @param mixed $beagle_score
+     */
+    public function setBeagleScore($beagle_score)
+    {
+        $this->beagle_score = $beagle_score;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTransactionType()
+    {
+        return $this->transaction_type;
+    }
+
+    /**
+     * @param mixed $transaction_type
+     */
+    public function setTransactionType($transaction_type)
+    {
+        $this->transaction_type = $transaction_type;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAuthorisationCode()
+    {
+        return $this->authorisation_code;
+    }
+
+    /**
+     * @param mixed $authorisation_code
+     */
+    public function setAuthorisationCode($authorisation_code)
+    {
+        $this->authorisation_code = $authorisation_code;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResponseCode()
+    {
+        return $this->response_code;
+    }
+
+    /**
+     * @param mixed $response_code
+     */
+    public function setResponseCode($response_code)
+    {
+        $this->response_code = $response_code;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResponseMessage()
+    {
+        return $this->response_message;
+    }
+
+    /**
+     * @param mixed $response_message
+     */
+    public function setResponseMessage($response_message)
+    {
+        $this->response_message = $response_message;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInvoiceNumber()
+    {
+        return $this->invoice_number;
+    }
+
+    /**
+     * @param mixed $invoice_number
+     */
+    public function setInvoiceNumber($invoice_number)
+    {
+        $this->invoice_number = $invoice_number;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInvoiceReference()
+    {
+        return $this->invoice_reference;
+    }
+
+    /**
+     * @param mixed $invoice_reference
+     */
+    public function setInvoiceReference($invoice_reference)
+    {
+        $this->invoice_reference = $invoice_reference;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTotalAmount()
+    {
+        return $this->total_amount;
+    }
+
+    /**
+     * @param mixed $total_amount
+     */
+    public function setTotalAmount($total_amount)
+    {
+        $this->total_amount = $total_amount;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTransactionID()
+    {
+        return $this->transaction_iD;
+    }
+
+    /**
+     * @param mixed $transaction_iD
+     */
+    public function setTransactionID($transaction_iD)
+    {
+        $this->transaction_iD = $transaction_iD;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTransactionStatus()
+    {
+        return $this->transaction_status;
+    }
+
+    /**
+     * @param mixed $transaction_status
+     */
+    public function setTransactionStatus($transaction_status)
+    {
+        $this->transaction_status = $transaction_status;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTokenCustomerID()
+    {
+        return $this->token_customer_iD;
+    }
+
+    /**
+     * @param mixed $token_customer_iD
+     */
+    public function setTokenCustomerID($token_customer_iD)
+    {
+        $this->token_customer_iD = $token_customer_iD;
+    }
+
+    public function getCapture()
+    {
+        return $this->capture;
+    }
+
+    /**
+     * @param boolean $capture
+     * @return $this
+     */
+    public function setCapture($capture)
+    {
+        $this->capture = $capture;
+        if ($capture) {
+            $this->setMethod(PaymentMethod::PROCESS_PAYMENT);
+        }
+        return $this;
+    }
+
 }
