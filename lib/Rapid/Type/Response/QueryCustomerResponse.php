@@ -14,9 +14,6 @@ use Rapid\Type\Regular\Customer;
 
 class QueryCustomerResponse extends AbstractResponse
 {
-
-    protected $customers = array();
-
     /**
      * @return mixed
      */
@@ -31,11 +28,19 @@ class QueryCustomerResponse extends AbstractResponse
      */
     public function setCustomers($customers)
     {
+        $tmp = array();
+        $this->customers = array();
+        $class = 'Rapid\Type\Regular\Customer';
         if (count($customers) > 0) {
-            foreach ($customers as $customer) {
-                $this->customers[] = new Customer($customer);
+            foreach ($customers as $item) {
+                if ($item instanceof $class) {
+                    $tmp[] = $item;
+                } else {
+                    $tmp[] = new Customer($item);
+                }
             }
         }
+        $this->customers = array_merge($this->customers, $tmp);
         return $this;
     }
 }

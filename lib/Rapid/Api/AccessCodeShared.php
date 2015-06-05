@@ -2,11 +2,11 @@
 namespace Rapid\Api;
 
 use Rapid\Api\AccessCode;
+use Rapid\Type\Regular\LineItem;
 use Rapid\Validation\ArgumentValidator;
 
 class AccessCodeShared extends AccessCode
 {
-    var $custom_view;
     /**
      * @param $url
      * @return $this
@@ -166,4 +166,37 @@ class AccessCodeShared extends AccessCode
     {
         $this->custom_view = $custom_view;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getVerifyPhone()
+    {
+        return $this->verify_phone;
+    }
+
+    /**
+     * @param mixed $verify_phone
+     */
+    public function setVerifyPhone($verify_phone)
+    {
+        $this->verify_phone = $verify_phone;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVerifyEmail()
+    {
+        return $this->verify_email;
+    }
+
+    /**
+     * @param mixed $verify_email
+     */
+    public function setVerifyEmail($verify_email)
+    {
+        $this->verify_email = $verify_email;
+    }
+
 }

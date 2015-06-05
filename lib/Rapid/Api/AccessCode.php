@@ -20,8 +20,6 @@ use Rapid\Validation\ArgumentValidator;
 
 class AccessCode extends ResourceModel
 {
-    protected $items;
-
     /**
      * @return array
      */
@@ -161,32 +159,24 @@ class AccessCode extends ResourceModel
     }
 
     /**
-     * @param mixed $items
+     * @param array $items
      * @return $this
      */
     public function setItems($items)
     {
-        if (count($items)) {
-            // reset items array
-            $this->items = array();
+        $tmp = array();
+        $this->items = array();
+        $class = 'Rapid\Type\Regular\LineItem';
+        if (count($items) > 0) {
             foreach ($items as $item) {
-                $this->addItem($item);
+                if ($item instanceof $class) {
+                    $tmp[] = $item;
+                } else {
+                    $tmp[] = new LineItem($item);
+                }
             }
         }
-        return $this;
-    }
-
-    /**
-     * @param $item
-     * @return $this
-     */
-    public function addItem($item)
-    {
-        if ($item instanceof LineItem) {
-            $this->items[] = $item;
-        } else {
-            $this->items[] = new LineItem($item);
-        }
+        $this->items = array_merge($this->items, $tmp);
         return $this;
     }
 
@@ -236,6 +226,43 @@ class AccessCode extends ResourceModel
     public function setCustomerIP($customer_iP)
     {
         $this->customer_iP = $customer_iP;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCapture()
+    {
+        return $this->capture;
+    }
+
+    /**
+     * @param boolean $capture
+     * @return $this
+     */
+    public function setCapture($capture)
+    {
+        $this->capture = $capture;
+        if ($capture) {
+            $this->setMethod(PaymentMethod::PROCESS_PAYMENT);
+        }
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
+     * @param array $options
+     */
+    public function setOptions($options)
+    {
+        $this->options = $options;
     }
 
 }

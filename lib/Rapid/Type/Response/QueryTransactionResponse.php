@@ -14,8 +14,6 @@ use Rapid\Type\Regular\Transaction;
 
 class QueryTransactionResponse extends AbstractResponse
 {
-    protected $transactions = array();
-
     /**
      * @return mixed
      */
@@ -49,16 +47,19 @@ class QueryTransactionResponse extends AbstractResponse
      */
     public function setTransactions($transactions)
     {
+        $tmp = array();
+        $this->transactions = array();
         $class = 'Rapid\Type\Regular\Transaction';
-        if(count($transactions) > 0){
-            foreach($transactions as $transaction){
-                if ($transaction instanceof $class) {
-                    $this->transactions[] = $transaction;
+        if (count($transactions) > 0) {
+            foreach ($transactions as $item) {
+                if ($item instanceof $class) {
+                    $tmp[] = $item;
                 } else {
-                    $this->transactions[] = new Transaction($transaction);
+                    $tmp[] = new Transaction($item);
                 }
             }
         }
+        $this->transactions = array_merge($this->transactions, $tmp);
         return $this;
     }
 

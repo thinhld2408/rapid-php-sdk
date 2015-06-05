@@ -70,4 +70,20 @@ class BasicAuthCredential extends ResourceModel implements ICredential
         // TODO: Implement getAuthHandler() method.
         return self::$AUTH_HANDLER;
     }
+
+    /**
+     * @return $this
+     */
+    public function getLogger()
+    {
+        return $this->logger;
+    }
+
+    /**
+     * @param $this $logger
+     */
+    public function setLogger($logger)
+    {
+        $this->logger = $logger;
+    }
 }

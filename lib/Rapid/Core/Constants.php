@@ -10,7 +10,7 @@ namespace Rapid\Core;
  */
 class Constants {
 
-    const SDK_NAME = 'Rapid-PHP-SDK';
+    const SDK_NAME = 'rapid-php-sdk';
     const SDK_VERSION = '3.1.0';
 
     const MODE_SANDBOX = 'sandbox';

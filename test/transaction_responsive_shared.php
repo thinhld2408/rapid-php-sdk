@@ -14,6 +14,7 @@ $api_context = require 'common.php';
 
 use Rapid\Api\AccessCodeShared;
 use Rapid\RapidSDK;
+use Rapid\Type\Enumerated\CustomView;
 use Rapid\Type\Enumerated\PaymentMethod;
 use Rapid\Type\Enumerated\ShippingMethod;
 use Rapid\Type\Enumerated\TransactionType;
@@ -32,7 +33,7 @@ $rapidSDKClient = $rapidSDK->createSDKClient('60CF3CHYfIrcF4ul8FwT+s/8VTh4AmDDz1
 /* STEP 1: CREATE AN ACCESS CODE */
 $accessCodeResponse = $rapidSDKClient->createAccessCodeShared(new AccessCodeShared(array(
     'Payment'             => new PaymentDetails(array(
-        'TotalAmount' => 100,
+        'TotalAmount' => 1000,
     )),
     'Customer'            => new Customer(array(
         'Reference'      => 'A12345',
@@ -69,7 +70,7 @@ $accessCodeResponse = $rapidSDKClient->createAccessCodeShared(new AccessCodeShar
             'SKU'         => '12345678901234567890',
             'Description' => 'Item Description 1',
             'Quantity'    => 1,
-            'UnitCost'    => 400,
+            'UnitCost'    => 500,
             'Tax'         => 100,
             'Total'       => 500,
         )),
@@ -77,9 +78,9 @@ $accessCodeResponse = $rapidSDKClient->createAccessCodeShared(new AccessCodeShar
             'SKU'         => '123456789',
             'Description' => 'Item Description 2',
             'Quantity'    => 1,
-            'UnitCost'    => 333,
+            'UnitCost'    => 500,
             'Tax'         => 100,
-            'Total'       => 433,
+            'Total'       => 500,
         )),
     ),
     "PartnerID"           => "ID",
@@ -88,23 +89,22 @@ $accessCodeResponse = $rapidSDKClient->createAccessCodeShared(new AccessCodeShar
     'RedirectUrl'         => 'http://www.eway.com.au',
     'Method'              => PaymentMethod::PROCESS_PAYMENT,
     'TransactionType'     => TransactionType::PURCHASE,
-    "LogoUrl"             => "https://mysite.com/images/logo4eway.jpg",
-    "HeaderText"          => "My Site Header Text",
+    "LogoUrl"             => "",
+    "HeaderText"          => "This is demo Shared page",
     "Language"            => "EN",
-    "CustomerReadOnly"    => true,
-    "CustomView"          => "bootstrap",
+    "CustomerReadOnly"    => false,
+    "CustomView"          => CustomView::BOOTSTRAP,
     "VerifyCustomerPhone" => false,
     "VerifyCustomerEmail" => false
 )));
 echo "STEP 1: CREATE A NEW ACCESS CODE \n";
-print_r($accessCodeResponse->toArray());
+print_r($accessCodeResponse->toJSON());
 
 /* STEP 2: REDIRECT CUSTOMER TO EWAY */
 /* Using the SharedPaymentUrl you must now redirect the customer’s browser to eWAY to process their credit card details. */
-echo "STEP 2: REDIRECT CUSTOMER TO EWAY \n\n";
+echo "\nSTEP 2: REDIRECT CUSTOMER TO EWAY \n";
 
 /* STEP 3 : REQUEST THE RESULTS */
 //$queryAccessCode = $rapidSDKClient->queryAccessCode($accessCodeResponse->getAccessCode());
-$queryAccessCode = $rapidSDKClient->queryAccessCode('A1001L8KdcuLWBdDlfTYWAmm3sQh3W191jA724tGwtf3npdPHXF8dU30tf5eO1tMMn78wd9ts6vbltAJgZyuCYTAbVHNCNP8d-4mlFsvqJbu8Aztw0de_SaeMzVBWKtEm3EJ5');
-echo "STEP 3 : REQUEST THE RESULTS \n";
-print_r($queryAccessCode->toArray());
+echo "\nSTEP 3 : REQUEST THE RESULTS \n";
+//print_r($queryAccessCode->toArray());

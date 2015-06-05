@@ -16,7 +16,6 @@ use Rapid\Type\Enumerated\PaymentMethod;
 
 class Transaction extends RapidModel
 {
-    var $items = array();
 
     /**
      * @return Customer
@@ -93,16 +92,24 @@ class Transaction extends RapidModel
     }
 
     /**
-     * @param array $line_items
+     * @param array $items
      * @return $this
      */
-    public function setItems($line_items)
+    public function setItems($items)
     {
-        if (count($line_items) > 0) {
-            foreach ($line_items as $item) {
-                $this->items[] = new LineItem($item);
+        $tmp = array();
+        $this->items = array();
+        $class = 'Rapid\Type\Regular\LineItem';
+        if (count($items) > 0) {
+            foreach ($items as $item) {
+                if ($item instanceof $class) {
+                    $tmp[] = $item;
+                } else {
+                    $tmp[] = new LineItem($item);
+                }
             }
         }
+        $this->items = array_merge($this->items, $tmp);
         return $this;
     }
 
