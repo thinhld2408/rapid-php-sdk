@@ -44,7 +44,7 @@ class RapidSDKClient extends ResourceModel
     protected $configs = array(
         'mode'             => Constants::MODE_SANDBOX,
         'language'         => 'EN',
-        'log.LogEnabled'   => true,
+        'log.d'            => true,
         'log.FileName'     => 'rapidapi.log',
         'log.LogLevel'     => LoggingLevel::DEBUG,
         'validation.level' => 'log',

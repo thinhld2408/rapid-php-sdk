@@ -12,10 +12,13 @@ if (isset($_POST['form_key'])) {
     $queryTransactionResponse = $rapidSDKClient->queryCustomer($_POST['TokenCustomerID']);
     $errors = $queryTransactionResponse->getErrors();
 
+    $customers = $queryTransactionResponse->getCustomers();
+    $customer = array_shift($customers);
+
     if (!empty($errors)) {
         print '<pre>'; print_r($errors); die;
     } else {
-        print '<pre>'; print_r($queryTransactionResponse->getCustomers()); die;
+        print '<pre>'; print_r($customer); die;
     }
 }
 
@@ -39,7 +42,7 @@ $title = 'Query Customer';
         <tr>
             <td width="30%">Token Customer ID</td>
             <td>
-                <input type="text" name="TokenCustomerID" placeholder="Enter Token Customer ID...">
+                <input type="text" name="TokenCustomerID" placeholder="Enter Token Customer ID..." required>
             </td>
         </tr>
         <tr>

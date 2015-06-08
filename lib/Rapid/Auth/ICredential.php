@@ -11,6 +11,7 @@
 
 namespace Rapid\Auth;
 
-interface ICredential {
+interface ICredential
+{
     function getAuthHandler();
 }

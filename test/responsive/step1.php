@@ -2,6 +2,7 @@
 use Rapid\Type\Enumerated\PaymentMethod;
 use Rapid\Type\Enumerated\ShippingMethod;
 use Rapid\Type\Enumerated\TransactionType;
+use Rapid\Type\Enumerated\CustomView;
 
 // text inputs
 $inText = array(
@@ -199,7 +200,14 @@ $inText = array(
         'required'  => false,
         'value'     => 'EN',
     ),
-
+    'Option1'   => array(
+        'required'  => false,
+        'value'     => '',
+    ),
+    'Option2'   => array(
+        'required'  => false,
+        'value'     => '',
+    ),
 );
 
 // option inputs
@@ -213,6 +221,9 @@ unset($opMethod['UPDATE_TOKEN_CUSTOMER']);
 
 $refTt = new ReflectionClass('Rapid\Type\Enumerated\TransactionType');
 $opTransactionType = $refTt->getConstants();
+
+$refCv = new ReflectionClass('Rapid\Type\Enumerated\CustomView');
+$opCustomView = $refCv->getConstants();
 
 $inOption = array(
     'ShippingMethod'    => array(
@@ -232,23 +243,28 @@ $inOption = array(
     ),
     'CustomerReadOnly' => array(
         'required'  => false,
-        'value'     => array('true', 'false'),
+        'value'     => array(1, 0),
         'default'   => false,
     ),
     'VerifyCustomerPhone' => array(
         'required'  => false,
-        'value'     => array('true', 'false'),
-        'default'   => false,
+        'value'     => array('True', 'False'),
+        'default'   => 'False',
     ),
     'VerifyCustomerEmail' => array(
         'required'  => false,
-        'value'     => array('true', 'false'),
-        'default'   => false,
+        'value'     => array('True', 'False'),
+        'default'   => 'False',
     ),
     'CustomView'        => array(
         'required'  => false,
-        'value'     => array('Bootstrap', 'BootstrapAmelia', 'BootstrapCerulean', 'BootstrapCosmo', 'BootstrapCyborg', 'BootstrapFlatly', 'BootstrapJournal', 'BootstrapReadable', 'BootstrapSimplex', 'BootstrapSlate', 'BootstrapSpacelab', 'BootstrapUnited'),
-        'default'   => 'Bootstrap',
+        'value'     => $opCustomView,
+        'default'   => CustomView::BOOTSTRAP,
+    ),
+    'Capture'       => array(
+        'required'  => false,
+        'value'     => array('True', 'False'),
+        'default'   => 'False',
     ),
 );
 
@@ -257,7 +273,7 @@ $formAction = $_SERVER['REQUEST_URI'] . '?s=step2';
 
 <div align="center">
     <h2>Create Transaction: <span style="color: blue">Responsive Shared Page</span></h2>
-    <h3>Step 1: Create an access code</h3>
+    <h3>Step 1: Create an access code shared</h3>
 </div>
 
 <form action="<?= $formAction ?>" method="POST">
@@ -276,9 +292,12 @@ $formAction = $_SERVER['REQUEST_URI'] . '?s=step2';
                         <?php
                         if (!empty($v['value'])) {
                             foreach ($v['value'] as $item) {
+                                $value = $item;
+                                if ($item == 'True') $value = 1;
+                                if ($item == 'False') $value = 0;
                                 $selected = ($v['default'] == $item) ? 'selected' : '';
                                 ?>
-                                <option <?= $selected ?> value="<?= $item ?>"><?= $item ?></option>
+                                <option <?= $selected ?> value="<?= $value ?>"><?= $item ?></option>
                             <?php
                             }
                         }

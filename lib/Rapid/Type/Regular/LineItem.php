@@ -12,7 +12,6 @@
 namespace Rapid\Type\Regular;
 
 use Rapid\Common\RapidModel;
-use Rapid\Validation\NumericValidator;
 
 class LineItem extends RapidModel {
 
@@ -66,7 +65,6 @@ class LineItem extends RapidModel {
      */
     public function setQuantity($quantity)
     {
-        NumericValidator::validate($quantity, 'Quantity');
         $this->quantity = $quantity;
         return $this;
     }
@@ -85,7 +83,6 @@ class LineItem extends RapidModel {
      */
     public function setUnitCost($unit_cost)
     {
-        NumericValidator::validate($unit_cost, 'Unit Cost');
         $this->unit_cost = $unit_cost;
         return $this;
     }
@@ -122,7 +119,6 @@ class LineItem extends RapidModel {
      */
     public function setTotal($total)
     {
-        NumericValidator::validate($total, 'Total');
         $this->total = $total;
         return $this;
     }

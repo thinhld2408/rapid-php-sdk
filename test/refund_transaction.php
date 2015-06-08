@@ -49,13 +49,13 @@ $title = 'Refund Transaction';
         <tr>
             <td width="30%">Transaction ID</td>
             <td>
-                <input type="text" name="TransactionID" value="">
+                <input type="text" name="TransactionID" value="" required>
             </td>
         </tr>
         <tr>
             <td width="30%">Total Amount</td>
             <td>
-                <input type="text" name="TotalAmount" value="">
+                <input type="text" name="TotalAmount" value="" required>
             </td>
         </tr>
         <tr>

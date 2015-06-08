@@ -93,7 +93,7 @@ $accessCodeResponse = $rapidSDKClient->createAccessCodeShared(new AccessCodeShar
     "HeaderText"          => "This is demo Shared page",
     "Language"            => "EN",
     "CustomerReadOnly"    => false,
-    "CustomView"          => CustomView::BOOTSTRAP,
+    "CustomView"          => CustomView::BOOTSTRAP_SLATE,
     "VerifyCustomerPhone" => false,
     "VerifyCustomerEmail" => false
 )));

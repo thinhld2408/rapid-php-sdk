@@ -6,30 +6,15 @@
  * @author     Dzung Tran <dzung.tt@outlook.com>
  * @license    http://www.opensource.org/licenses/bsd-license.php BSD License
  * @version    1.0.0
- * @description 
+ * @description
  */
 
 namespace Rapid\Type\Regular;
 
 use Rapid\Common\RapidModel;
 
-class CardDetails extends RapidModel {
-
-    public function __construct($data = null)
-    {
-        switch (gettype($data)) {
-            case "NULL":
-                break;
-            case "string":
-                JsonValidator::validate($data);
-                $this->fromJson($data);
-                break;
-            case "array":
-                $this->fromArray($data);
-                break;
-            default:
-        }
-    }
+class CardDetails extends RapidModel
+{
 
     /**
      * @return string

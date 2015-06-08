@@ -1,7 +1,7 @@
 <?php
 
 namespace Rapid\Common;
-use Rapid\Handler\IHandler;
+
 use Rapid\Rest\ApiContext;
 use Rapid\Rest\IResource;
 use Rapid\Transport\RestCall;
@@ -84,12 +84,12 @@ class ResourceModel extends RapidModel implements IResource
     /**
      * Execute SDK Call to Rapid services
      *
-     * @param string      $url
-     * @param string      $method
-     * @param string      $payLoad
+     * @param string $url
+     * @param string $method
+     * @param string $payLoad
      * @param array $headers
-     * @param ApiContext      $apiContext
-     * @param RestCall      $restCall
+     * @param ApiContext $apiContext
+     * @param RestCall $restCall
      * @param array $handlers
      * @return string json response of the object
      */

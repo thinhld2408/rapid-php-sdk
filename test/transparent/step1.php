@@ -183,6 +183,14 @@ $inText = array(
         'required'  => true,
         'value'     => 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . '?s=step3',
     ),
+    'Option1'   => array(
+        'required'  => false,
+        'value'     => 'Option 1',
+    ),
+    'Option2'   => array(
+        'required'  => false,
+        'value'     => 'Option 2',
+    ),
 );
 
 // option inputs
@@ -198,12 +206,12 @@ $refTt = new ReflectionClass('Rapid\Type\Enumerated\TransactionType');
 $opTransactionType = $refTt->getConstants();
 
 $inOption = array(
-    'ShippingMethod'    => array(
+    'ShippingMethod'=> array(
         'required'  => false,
         'value'     => $opShippingMethod,
         'default'   => ShippingMethod::NEXT_DAY,
     ),
-    'Method'            => array(
+    'Method'        => array(
         'required'  => true,
         'value'     => $opMethod,
         'default'   => PaymentMethod::PROCESS_PAYMENT,
@@ -212,6 +220,11 @@ $inOption = array(
         'required'  => true,
         'value'     => $opTransactionType,
         'default'   => TransactionType::PURCHASE,
+    ),
+    'Capture'       => array(
+        'required'  => false,
+        'value'     => array('True', 'False'),
+        'default'   => 'False',
     ),
 );
 
@@ -239,9 +252,12 @@ $formAction = $_SERVER['REQUEST_URI'] . '?s=step2';
                         <?php
                         if (!empty($v['value'])) {
                             foreach ($v['value'] as $item) {
+                                $value = $item;
+                                if ($item == 'True') $value = 1;
+                                if ($item == 'False') $value = 0;
                                 $selected = ($v['default'] == $item) ? 'selected' : '';
                                 ?>
-                                <option <?= $selected ?> value="<?= $item ?>"><?= $item ?></option>
+                                <option <?= $selected ?> value="<?= $value ?>"><?= $item ?></option>
                             <?php
                             }
                         }

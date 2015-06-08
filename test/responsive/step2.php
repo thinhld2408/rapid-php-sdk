@@ -5,6 +5,7 @@ use Rapid\Type\Regular\Customer;
 use Rapid\Type\Regular\ShippingDetails;
 use Rapid\Type\Regular\LineItem;
 use Rapid\Api\AccessCodeShared;
+use Rapid\Type\Regular\CardDetails;
 
 if (isset($_POST['form_key'])) {
 
@@ -18,7 +19,8 @@ if (isset($_POST['form_key'])) {
         if (!empty($errors)) {
             print_r($errors); die;
         } else {
-            $customer = $queryCustomerResponse[0];
+            $customers = $queryCustomerResponse->getCustomers();
+            $customer = $customers[0];
         }
 
     } else {
@@ -26,10 +28,16 @@ if (isset($_POST['form_key'])) {
     }
 
     $payment = new PaymentDetails($_POST['Payment']);
+
+    $_POST['ShippingAddress']['ShippingMethod'] = $_POST['ShippingMethod'];
     $shipping = new ShippingDetails($_POST['ShippingAddress']);
     $item0 = new LineItem($_POST['Item0']);
     $item1 = new LineItem($_POST['Item1']);
     $item = array($item0, $item1);
+    $options = array(
+        array('Value'   => $_POST['Option1']),
+        array('Value'   => $_POST['Option2']),
+    );
 
     $accessCode = new AccessCodeShared(array(
         'Payment'           => $payment,
@@ -39,7 +47,7 @@ if (isset($_POST['form_key'])) {
         'PartnerID'         => $_POST['PartnerID'],
         'DeviceID'          => $_POST['DeviceID'],
         'CustomerIP'        => $_POST['CustomerIP'],
-        'RedirectUrl'       => $_POST['RedirectUrl'],
+        'RedirectUrl'       => $_POST['RedirectUrl'] . '&pm=' . $_POST['Method'],
         'Method'            => $_POST['Method'],
         'TransactionType'   => $_POST['TransactionType'],
         'CustomerReadOnly'  => (boolean)$_POST['CustomerReadOnly'],
@@ -50,6 +58,8 @@ if (isset($_POST['form_key'])) {
         'LogoUrl'               => $_POST['LogoUrl'],
         'HeaderText'            => $_POST['HeaderText'],
         'Language'              => $_POST['Language'],
+        'Capture'               => (boolean)$_POST['Capture'],
+        'Options'               => $options,
     ));
 
     $accessCodeResponse = $rapidSDKClient->createAccessCodeShared($accessCode);

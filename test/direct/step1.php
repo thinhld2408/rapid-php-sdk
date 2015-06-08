@@ -229,6 +229,14 @@ $inText = array(
         'required'  => false,
         'value'     => '127.0.0.1',
     ),
+    'Option1'   => array(
+        'required'  => false,
+        'value'     => '',
+    ),
+    'Option2'   => array(
+        'required'  => false,
+        'value'     => '',
+    ),
 );
 
 // option inputs
@@ -259,13 +267,15 @@ $inOption = array(
         'value'     => $opTransactionType,
         'default'   => TransactionType::PURCHASE,
     ),
+    'Capture'       => array(
+        'required'  => false,
+        'value'     => array('True', 'False'),
+        'default'   => 'False',
+    ),
 );
 
 $formAction = $_SERVER['REQUEST_URI'] . '?s=step2';
 ?>
-
-
-
 <div align="center">
     <h2>Create Transaction: <span style="color: blue">Direct Connection</span></h2>
 </div>
@@ -286,9 +296,12 @@ $formAction = $_SERVER['REQUEST_URI'] . '?s=step2';
                         <?php
                         if (!empty($v['value'])) {
                             foreach ($v['value'] as $item) {
+                                $value = $item;
+                                if ($item == 'True') $value = 1;
+                                if ($item == 'False') $value = 0;
                                 $selected = ($v['default'] == $item) ? 'selected' : '';
                                 ?>
-                                <option <?= $selected ?> value="<?= $item ?>"><?= $item ?></option>
+                                <option <?= $selected ?> value="<?= $value ?>"><?= $item ?></option>
                             <?php
                             }
                         }

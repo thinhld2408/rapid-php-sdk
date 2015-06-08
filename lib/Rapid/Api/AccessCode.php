@@ -12,11 +12,11 @@
 namespace Rapid\Api;
 
 use Rapid\Common\ResourceModel;
+use Rapid\Type\Enumerated\PaymentMethod;
 use Rapid\Type\Regular\Customer;
 use Rapid\Type\Regular\LineItem;
 use Rapid\Type\Regular\PaymentDetails;
 use Rapid\Type\Regular\ShippingDetails;
-use Rapid\Validation\ArgumentValidator;
 
 class AccessCode extends ResourceModel
 {

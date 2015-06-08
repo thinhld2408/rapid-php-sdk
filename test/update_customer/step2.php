@@ -1,157 +1,122 @@
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
-require_once 'config.php';
-
 use Rapid\RapidSDK;
 use Rapid\Type\Regular\Customer;
 use Rapid\Type\Regular\CardDetails;
 
+$rapidSdk = new RapidSDK();
+$rapidSdkClient = $rapidSdk->createSDKClient(API_KEY, API_PASSWORD);
+
+if (isset($_POST['form_key'])) {
+
+    // Token Customer ID
+    $tokenCustomerID = trim($_POST['TokenCustomerID']);
+    $queryCustomerResponse = $rapidSdkClient->queryCustomer($tokenCustomerID);
+    //print '<pre>'; print_r($queryCustomerResponse); die;
+
+    $errors = $queryCustomerResponse->getErrors();
+    if (!empty($errors)) {
+        print_r($errors); die;
+    }
+
+} else {
+    print '<a href="/test/update_customer/index.php?s=step1">Back to step 1</a>'; die;
+}
+
+$customers = $queryCustomerResponse->getCustomers();
+$customer = $customers[0];
+$card = $customer->getCardDetails();
+
 $infoCustomer = array(
     "Reference"      => array(
         'required'  => false,
-        'value'     => 'SmartOsc',
+        'value'     => $customer->getReference(),
     ),
     "Title"      => array(
         'required'  => true,
-        'value'     => 'Mr.',
+        'value'     => $customer->getTitle(),
     ),
     "FirstName"      => array(
         'required'  => true,
-        'value'     => 'John',
+        'value'     => $customer->getFirstName(),
     ),
     "LastName"      => array(
         'required'  => true,
-        'value'     => 'Smith',
+        'value'     => $customer->getLastName(),
     ),
     "CompanyName"      => array(
         'required'  => false,
-        'value'     => 'Demo Shop 123',
+        'value'     => $customer->getCompanyName(),
     ),
     "JobDescription"      => array(
         'required'  => false,
-        'value'     => 'Developer',
+        'value'     => $customer->getJobDescription(),
     ),
     "Street1"      => array(
         'required'  => false,
-        'value'     => '266 Doi Can Street',
+        'value'     => $customer->getStreet1(),
     ),
     "Street2"      => array(
         'required'  => false,
-        'value'     => '',
+        'value'     => $customer->getStreet2(),
     ),
     "City"      => array(
         'required'  => false,
-        'value'     => 'Ha noi',
+        'value'     => $customer->getCity(),
     ),
     "State"      => array(
         'required'  => false,
-        'value'     => 'Ba Dinh',
+        'value'     => $customer->getState(),
     ),
     "PostalCode"      => array(
         'required'  => false,
-        'value'     => '10000',
+        'value'     => $customer->getPostalCode(),
     ),
     "Country"      => array(
         'required'  => true,
-        'value'     => 'UK',
+        'value'     => $customer->getCountry(),
     ),
     "Phone"      => array(
         'required'  => false,
-        'value'     => '043633466',
+        'value'     => $customer->getPhone(),
     ),
     "Mobile"      => array(
         'required'  => false,
-        'value'     => '0906600788',
+        'value'     => $customer->getMobile(),
     ),
     "Email"      => array(
         'required'  => false,
-        'value'     => 'dungvv@smartosc.com',
+        'value'     => $customer->getEmail(),
     ),
     "Url"      => array(
         'required'  => false,
-        'value'     => 'http://dungvv.blogspot.com',
+        'value'     => $customer->getUrl(),
     ),
 );
 
 $infoCard = array(
     "Name"        => array(
         'required'  => false,
-        'value'     => 'John Smith',
+        'value'     => $card->getName(),
     ),
     "Number"        => array(
         'required'  => false,
-        'value'     => '4444333322221111',
+        'value'     => $card->getNumber(),
     ),
     "ExpiryMonth"        => array(
         'required'  => false,
-        'value'     => '05',
+        'value'     => $card->getExpiryMonth(),
     ),
     "ExpiryYear"        => array(
         'required'  => false,
-        'value'     => '17',
+        'value'     => $card->getExpiryYear(),
     ),
     "CVN"        => array(
         'required'  => false,
-        'value'     => '123',
+        'value'     => $card->getCVN(),
     ),
 );
 
-
-if (isset($_POST['form_key'])) {
-
-    $customer = $_POST['Customer'];
-    $card = $_POST['CardDetails'];
-
-    $make = true;
-    if (!empty($_POST['CardDetails'])) {
-        foreach ($_POST['CardDetails'] as $item) {
-            if (trim($item) == '') {
-                $make = false;
-                break;
-            }
-        }
-    }
-
-    $cardDetails = ($make) ? new CardDetails(array(
-        "Name"        => $card['Name'],
-        "Number"      => $card['Number'],
-        "ExpiryMonth" => $card['ExpiryMonth'],
-        "ExpiryYear"  => $card['ExpiryYear'],
-        "CVN"         => $card['CVN'],
-    )) : null;
-
-    $rapidSdk = new RapidSDK();
-    $rapidSdkClient = $rapidSdk->createSDKClient(API_KEY, API_PASSWORD);
-
-    $customer = new Customer(array(
-        "Reference"      => $customer['Reference'],
-        "Title"          => $customer['Title'],
-        "FirstName"      => $customer['FirstName'],
-        "LastName"       => $customer['LastName'],
-        "CompanyName"    => $customer['CompanyName'],
-        "JobDescription" => $customer['JobDescription'],
-        "Street1"        => $customer['Street1'],
-        "Street2"        => $customer['Street2'],
-        "City"           => $customer['City'],
-        "State"          => $customer['State'],
-        "PostalCode"     => $customer['PostalCode'],
-        "Country"        => $customer['Country'],
-        "Phone"          => $customer['Phone'],
-        "Mobile"         => $customer['Mobile'],
-        "Email"          => $customer['Email'],
-        "Url"            => $customer['Url'],
-        "CardDetails"    => $cardDetails,
-    ));
-    $createCustomerResponse = $rapidSdkClient->createCustomer($customer);
-
-    $errors = $createCustomerResponse->getErrors();
-    if (!empty($errors)) {
-        print '<pre>'; print_r($errors); die;
-    } else {
-        print '<pre>'; print_r($createCustomerResponse->getCustomer()); die;
-    }
-}
-$title = 'Create Customer';
+$title = 'Update Customer';
 ?>
 <!DOCTYPE html>
 <html>
@@ -164,8 +129,11 @@ $title = 'Create Customer';
 <div align="center">
     <h2><?=$title?></h2>
 </div>
-<form action="" method="POST">
+<form action="/test/update_customer/index.php?s=step3" method="POST">
+
     <input type="hidden" name="form_key" value="<?= rand(1000, 9999) ?>">
+    <input type="hidden" name="TokenCustomerID" value="<?= $tokenCustomerID ? $tokenCustomerID : 0 ?>">
+
     <table width="50%" border="0" style="border-collapse: collapse">
 
         <?php

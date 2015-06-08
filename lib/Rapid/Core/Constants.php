@@ -8,7 +8,8 @@ namespace Rapid\Core;
  *
  * @package Rapid\Core
  */
-class Constants {
+class Constants
+{
 
     const SDK_NAME = 'rapid-php-sdk';
     const SDK_VERSION = '3.1.0';

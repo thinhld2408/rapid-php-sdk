@@ -5,6 +5,7 @@ use Rapid\Type\Regular\Customer;
 use Rapid\Type\Regular\ShippingDetails;
 use Rapid\Type\Regular\LineItem;
 use Rapid\Api\AccessCode;
+use Rapid\Type\Regular\CardDetails;
 
 if (isset($_POST['form_key'])) {
 
@@ -19,29 +20,41 @@ if (isset($_POST['form_key'])) {
         if (!empty($errors)) {
             print_r($errors); die;
         } else {
-            $customer = $queryCustomerResponse[0];
+            $customers = $queryCustomerResponse->getCustomers();
+            $customer = $customers[0];
+            $card = $customer->getCardDetails();
         }
     } else {
         $customer = new Customer($_POST['Customer']);
     }
 
     $payment = new PaymentDetails($_POST['Payment']);
+
+    $_POST['ShippingAddress']['ShippingMethod'] = $_POST['ShippingMethod'];
     $shipping = new ShippingDetails($_POST['ShippingAddress']);
+
     $item0 = new LineItem($_POST['Item0']);
     $item1 = new LineItem($_POST['Item1']);
     $item = array($item0, $item1);
 
+    $options = array(
+        array('Value'   => $_POST['Option1']),
+        array('Value'   => $_POST['Option2']),
+    );
+
     $accessCode = new AccessCode(array(
-        'Payment'   => $payment,
-        'Customer'  => $customer,
+        'Payment'           => $payment,
+        'Customer'          => $customer,
         'ShippingAddress'   => $shipping,
-        'Items'     => $item,
-        'PartnerID' => $_POST['PartnerID'],
-        'DeviceID' => $_POST['DeviceID'],
-        'CustomerIP' => $_POST['CustomerIP'],
-        'RedirectUrl' => $_POST['RedirectUrl'],
-        'Method' => $_POST['Method'],
-        'TransactionType' => $_POST['TransactionType'],
+        'Items'             => $item,
+        'Method'            => $_POST['Method'],
+        'DeviceID'          => $_POST['DeviceID'],
+        'PartnerID'         => $_POST['PartnerID'],
+        'CustomerIP'        => $_POST['CustomerIP'],
+        'RedirectUrl'       => $_POST['RedirectUrl'] . '&pm=' . $_POST['Method'],
+        'TransactionType'   => $_POST['TransactionType'],
+        'Capture'           => (boolean)$_POST['Capture'],
+        'Options'           => $options,
     ));
 
     $accessCodeResponse = $rapidSDKClient->createAccessCode($accessCode);
@@ -62,49 +75,49 @@ if (isset($_POST['form_key'])) {
                 <tr>
                     <td width="30%">Card Name</td>
                     <td>
-                        <input type="text" name="EWAY_CARDNAME" value="Vuong Dung" required />
+                        <input type="text" name="EWAY_CARDNAME" value="<?= isset($card) ? $card->number : '' ?>" required />
                     </td>
                 </tr>
                 <tr>
                     <td>Card Number</td>
                     <td>
-                        <input type="text" name="EWAY_CARDNUMBER" value="4005550000000001" required />
+                        <input type="text" name="EWAY_CARDNUMBER" value="<?= isset($card) ? $card->name : '' ?>" required />
                     </td>
                 </tr>
                 <tr>
                     <td>Card Expiry Month</td>
                     <td>
-                        <input type="text" name="EWAY_CARDEXPIRYMONTH" value="05" required />
+                        <input type="text" name="EWAY_CARDEXPIRYMONTH" value="<?= isset($card) ? $card->expiry_month : '' ?>" required />
                     </td>
                 </tr>
                 <tr>
                     <td>Card Expiry Year</td>
                     <td>
-                        <input type="text" name="EWAY_CARDEXPIRYYEAR" value="17" required />
+                        <input type="text" name="EWAY_CARDEXPIRYYEAR" value="<?= isset($card) ? $card->expiry_year : '' ?>" required />
                     </td>
                 </tr>
                 <tr>
                     <td>Card Start Date</td>
                     <td>
-                        <input type="text" name="EWAY_CARDSTARTMONTH" />
+                        <input type="text" name="EWAY_CARDSTARTMONTH" value="<?= isset($card) ? $card->start_month : '' ?>" />
                     </td>
                 </tr>
                 <tr>
                     <td>Card Start Year</td>
                     <td>
-                        <input type="text" name="EWAY_CARDSTARTYEAR" />
+                        <input type="text" name="EWAY_CARDSTARTYEAR" value="<?= isset($card) ? $card->start_year : '' ?>" />
                     </td>
                 </tr>
                 <tr>
                     <td>Card Issue Number</td>
                     <td>
-                        <input type="text" name="EWAY_CARDISSUENUMBER" />
+                        <input type="text" name="EWAY_CARDISSUENUMBER" value="<?= isset($card) ? $card->issue_number : '' ?>" />
                     </td>
                 </tr>
                 <tr>
                     <td>Card CVN</td>
                     <td>
-                        <input type="text" name="EWAY_CARDCVN" value="123" required />
+                        <input type="text" name="EWAY_CARDCVN" value="" required />
                     </td>
                 </tr>
                 <tr>

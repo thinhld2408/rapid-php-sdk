@@ -1,10 +1,6 @@
 <?php
 namespace Rapid\Api;
 
-use Rapid\Api\AccessCode;
-use Rapid\Type\Regular\LineItem;
-use Rapid\Validation\ArgumentValidator;
-
 class AccessCodeShared extends AccessCode
 {
     /**

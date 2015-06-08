@@ -1,6 +1,7 @@
 <?php
 
 namespace Rapid\Common;
+
 use Rapid\Exception\ConfigurationException;
 
 /**
@@ -80,7 +81,7 @@ class ReflectionUtil
         }
 
         if (isset($param)) {
-            return substr($param, -strlen('[]'))==='[]';
+            return substr($param, -strlen('[]')) === '[]';
         } else {
             throw new ConfigurationException("Getter function for '$propertyName' in '$class' class should have a proper return type.");
         }
@@ -112,11 +113,12 @@ class ReflectionUtil
         }
 
         // todo: smarter regexp
-        if ( !preg_match_all(
+        if (!preg_match_all(
             '~\@([^\s@\(]+)[\t ]*(?:\(?([^\n@]+)\)?)?~i',
             $refl->getDocComment(),
             $annots,
-            PREG_PATTERN_ORDER)) {
+            PREG_PATTERN_ORDER)
+        ) {
             return null;
         }
         foreach ($annots[1] as $i => $annot) {

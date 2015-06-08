@@ -30,7 +30,7 @@
         <a href="/test/query_customer.php">Query Customer</a>
     </li>
     <li>
-        <a href="/test/update_customer.php">Update Customer</a>
+        <a href="/test/update_customer/">Update Customer</a>
     </li>
 </ul>
 
