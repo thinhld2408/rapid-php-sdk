@@ -1,4 +1,5 @@
 <?php
+
 use Rapid\RapidSDK;
 use Rapid\Type\Regular\PaymentDetails;
 
@@ -23,6 +24,14 @@ if (isset($_POST['form_key'])) {
         if (!empty($errors)) {
             print_r($errors);
             die;
+        }
+
+    } else if ($_POST['action'] == 'cancel_capture') {
+
+        $cancelAuthorisationResponse = $rapidSDKClient->cancelAuthorisation($_POST['TransactionID']);
+        $errors = $cancelAuthorisationResponse->getErrors();
+        if (!empty($errors)) {
+            print_r($errors); die;
         }
 
     }

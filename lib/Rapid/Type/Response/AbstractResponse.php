@@ -17,25 +17,42 @@ use Rapid\Type\Regular\VerificationResult;
 
 abstract class AbstractResponse extends ResourceModel
 {
-    private $_str_errors = '';
-    private $errors = array();
+    const MSG_DIR = 'Messages';
+    private $_messages = array();
 
     /**
      * @return mixed
      */
     public function getErrors()
     {
-        return $this->errors;
+        $errors = array();
+        if(count($this->errors) > 0) {
+            foreach ($this->errors as $code) {
+                if (isset($this->_messages[$code])) {
+                    $errors[$code] = $this->_messages[$code];
+                }
+            }
+        }
+        return $errors;
     }
 
     /**
-     * @param mixed $errors
+     * @param string $errors
      * @return $this
      */
     public function setErrors($errors)
     {
-        $this->errors = $errors;
-        //$this->_str_errors = $errors;
+        $tmp = array();
+        $this->errors = array();
+        $errors = array_filter(array_map('trim', explode(',', $errors)));
+
+        if(count($errors) > 0){
+            foreach ($errors as $code) {
+                $tmp[$code] = $code;
+            }
+        }
+
+        $this->errors = array_merge($this->errors, $tmp);
         return $this;
     }
 
@@ -64,7 +81,7 @@ abstract class AbstractResponse extends ResourceModel
     }
 
     /**
-     * @param mixed $response_code
+     * @param string $response_code
      * @return $this
      */
     public function setResponseCode($response_code)
@@ -78,7 +95,9 @@ abstract class AbstractResponse extends ResourceModel
      */
     public function getResponseMessage()
     {
-        return $this->response_message;
+        return isset($this->_messages[$this->response_message])
+            ? $this->_messages[$this->response_message]
+            : $this->response_message;
     }
 
     /**
@@ -154,49 +173,30 @@ abstract class AbstractResponse extends ResourceModel
     }
 
     /**
-     * @param $api_context
-     * @param array $codes
      * @param string $lang
      * @return string
      */
-    private function getMessages($api_context, $codes = array(), $lang = 'EN')
+    private function getMessages($lang = 'EN')
     {
-        $data = array(
-            "Language"   => $lang,
-            "ErrorCodes" => $codes,
-        );
+        $lang = trim(strtolower($lang));
+        $path = str_replace('Type/Response', self::MSG_DIR, __DIR__) . '/';
+        $file_path = $path . $lang . '.ini';
 
-        $payLoad = json_encode($data);
-
-        $json = self::executeCall(
-            "/staging-au/CodeLookup",
-            "POST",
-            $payLoad,
-            null,
-            $api_context,
-            null
-        );
-
-        return json_decode($json, true);
+        if (file_exists($file_path)) {
+            $messages = parse_ini_file($file_path);
+        } else {
+            $messages = parse_ini_file($path . 'en.ini');
+        }
+        return $messages;
     }
 
     /**
-     * @param $api_context
      * @param $lang
      * @return $this
      */
-    public function prepareMessages($api_context, $lang)
+    public function prepareMessages($lang)
     {
-        $codes = array_filter(explode(',', $this->_str_errors));
-
-        if (count($codes) > 0) {
-            $data = $this->getMessages($api_context, $codes, $lang);
-            if (isset($data['CodeDetails']) && count($data['CodeDetails']) > 0) {
-                foreach ($data['CodeDetails'] as $code) {
-                    $this->errors[$code['ErrorCode']] = $code['DisplayMessage'];
-                }
-            }
-        }
+        $this->_messages = $this->getMessages($lang);
         return $this;
     }
 

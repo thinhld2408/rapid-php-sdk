@@ -9,8 +9,13 @@ $rapidSDKClient = $rapidSDK->createSDKClient(API_KEY, API_PASSWORD);
 $accessCode = $_GET['AccessCode'];
 $queryAccessCode = $rapidSDKClient->queryAccessCode($accessCode);
 
-if (isset($_POST['form_key'])) {
-    if (isset($_POST['TransactionID'])) {
+if (isset($_POST['form_key']) && isset($_POST['TransactionID'])) {
+
+    $queryTransactionResponse = $rapidSDKClient->queryTransaction($_POST['TransactionID']);
+    $transactions = $queryTransactionResponse->getTransactions();
+    $transaction = array_shift($transactions);
+
+    if (isset($_POST['action']) && $_POST['action'] == 'capture') {
 
         $payment = new PaymentDetails(array(
             'TotalAmount'   => $queryAccessCode->getTotalAmount(),
@@ -21,16 +26,20 @@ if (isset($_POST['form_key'])) {
         if (!empty($errors)) {
             print_r($errors); die;
         } else {
-            $queryTransactionResponse = $rapidSDKClient->queryTransaction($_POST['TransactionID']);
-
             $errs = $queryTransactionResponse->getErrors();
             if (!empty($errs)) {
                 print_r($errs);
             }
         }
+    } else if ($_POST['action'] == 'cancel_capture') {
+
+        $cancelAuthorisationResponse = $rapidSDKClient->cancelAuthorisation($_POST['TransactionID']);
+        $errors = $cancelAuthorisationResponse->getErrors();
+        if (!empty($errors)) {
+            print_r($errors); die;
+        }
     }
-    $transactions = $queryTransactionResponse->getTransactions();
-    $transaction = array_shift($transactions);
+
     print 'Create transaction complete';
     print '<pre>'; print_r($transaction); die;
 }
@@ -46,14 +55,17 @@ if (isset($_POST['form_key'])) {
             <td width="50%">
                 <form action="" method="post">
                     <button type="submit">Capture</button>
+                    <input type="hidden" name="action" value="capture">
                     <input type="hidden" name="form_key" value="<?=rand(1000, 9999)?>">
                     <input type="hidden" name="TransactionID" value="<?=$queryAccessCode->getTransactionID()?>">
                 </form>
             </td>
             <td>
                 <form action="" method="post">
+                    <input type="hidden" name="action" value="cancel_capture">
                     <button type="submit">Cancel Capture</button>
                     <input type="hidden" name="form_key" value="<?=rand(1000, 9999)?>">
+                    <input type="hidden" name="TransactionID" value="<?=$queryAccessCode->getTransactionID()?>">
                 </form>
             </td>
         </tr>

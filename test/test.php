@@ -2,16 +2,13 @@
 
 $api_context = require 'common.php';
 
-use Rapid\Api\AccessCode;
 use Rapid\RapidSDK;
-use Rapid\Type\Enumerated\PaymentMethod;
-use Rapid\Type\Enumerated\ShippingMethod;
-use Rapid\Type\Enumerated\TransactionType;
-use Rapid\Type\Regular\CardDetails;
-use Rapid\Type\Regular\Customer;
-use Rapid\Type\Regular\LineItem;
-use Rapid\Type\Regular\PaymentDetails;
-use Rapid\Type\Regular\ShippingDetails;
+
+//$msg = new Rapid\Type\Response\CancelAuthorisationResponse();
+//$msg->setErrors('V6062,V6064,V6068,V6063');
+//$msg->prepareMessages('EN');
+//
+//print_r($msg->getErrors());die;
 
 $rapidSDK = new RapidSDK();
 //$rapidSDKClient = $rapidSDK->createSDKClient('F9802Cv/5v0y/KmyxJR5ND7ujpSGeM9b3pytdI2UhI+sJzxcxxj0pPRjCpIixTc/IW2mw2', 'Dung1234$');

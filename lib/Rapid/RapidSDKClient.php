@@ -209,7 +209,7 @@ class RapidSDKClient extends ResourceModel
         );
 
         $response = new CreateCustomerResponse($json);
-        // $response->prepareMessages($this->getApiContext(), $this->configs['language']);
+        $response->prepareMessages($this->configs['language']);
         return $response;
     }
 
@@ -244,7 +244,7 @@ class RapidSDKClient extends ResourceModel
         );
 
         $response = new CreateCustomerResponse($json);
-        // $response->prepareMessages($this->getApiContext(), $this->configs['language']);
+        $response->prepareMessages($this->configs['language']);
         return $response;
     }
 
@@ -265,7 +265,7 @@ class RapidSDKClient extends ResourceModel
         );
 
         $response = new QueryCustomerResponse($json);
-        // $response->prepareMessages($this->getApiContext(), $this->configs['language']);
+        $response->prepareMessages($this->configs['language']);
         return $response;
     }
 
@@ -287,7 +287,7 @@ class RapidSDKClient extends ResourceModel
         );
 
         $response = new CreateAccessCodeResponse($json);
-        // $response->prepareMessages($this->getApiContext(), $this->configs['language']);
+        $response->prepareMessages($this->configs['language']);
         return $response;
     }
 
@@ -308,7 +308,7 @@ class RapidSDKClient extends ResourceModel
         );
 
         $response = new QueryAccessCodeResponse($json);
-        // $response->prepareMessages($this->getApiContext(), $this->configs['language']);
+        $response->prepareMessages($this->configs['language']);
         return $response;
     }
 
@@ -330,7 +330,7 @@ class RapidSDKClient extends ResourceModel
         );
 
         $response = new CreateAccessCodeResponse($json);
-        // $response->prepareMessages($this->getApiContext(), $this->configs['language']);
+        $response->prepareMessages($this->configs['language']);
         return $response;
     }
 
@@ -355,7 +355,7 @@ class RapidSDKClient extends ResourceModel
         );
 
         $response = new CreateTransactionResponse($json);
-        // $response->prepareMessages($this->getApiContext(), $this->configs['language']);
+        $response->prepareMessages($this->configs['language']);
         return $response;
     }
 
@@ -377,7 +377,7 @@ class RapidSDKClient extends ResourceModel
         );
 
         $response = new QueryTransactionResponse($json);
-        // $response->prepareMessages($this->getApiContext(), $this->configs['language']);
+        $response->prepareMessages($this->configs['language']);
         return $response;
     }
 
@@ -403,7 +403,7 @@ class RapidSDKClient extends ResourceModel
         );
 
         $response = new RefundResponse($json);
-        // $response->prepareMessages($this->getApiContext(), $this->configs['language']);
+        $response->prepareMessages($this->configs['language']);
         return $response;
     }
 
@@ -444,7 +444,7 @@ class RapidSDKClient extends ResourceModel
             null
         );
         $response = new CapturePaymentResponse($json);
-        // $response->prepareMessages($this->getApiContext(), $this->configs['language']);
+        $response->prepareMessages($this->configs['language']);
         return $response;
     }
 
@@ -469,7 +469,7 @@ class RapidSDKClient extends ResourceModel
         );
 
         $response = new CancelAuthorisationResponse($json);
-        // $response->prepareMessages($this->getApiContext(), $this->configs['language']);
+        $response->prepareMessages($this->configs['language']);
         return $response;
     }
 }
