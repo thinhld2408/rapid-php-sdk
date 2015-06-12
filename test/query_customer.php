@@ -32,6 +32,9 @@ $title = 'Query Customer';
 </head>
 
 <body>
+
+<?php include 'header.php' ?>
+
 <div align="center">
     <h2><?=$title?></h2>
 </div>

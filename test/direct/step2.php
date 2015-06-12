@@ -55,7 +55,7 @@ if (isset($_POST['form_key'])) {
         'Method'            => $_POST['Method'],
         'TransactionType'   => $_POST['TransactionType'],
         'Options'           => $options,
-        'Capture'           => (boolean)$_POST['Capture'],
+//        'Capture'           => (boolean)$_POST['Capture'],
     ));
 
     $createTransactionResponse = $rapidSDKClient->createTransaction($transaction);

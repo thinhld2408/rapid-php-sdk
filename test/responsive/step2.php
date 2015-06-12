@@ -12,7 +12,7 @@ if (isset($_POST['form_key'])) {
     $rapidSDK = new RapidSDK();
     $rapidSDKClient = $rapidSDK->createSDKClient(API_KEY, API_PASSWORD);
 
-    if (isset($_POST['Customer']['TokenCustomerID'])) {
+    if (isset($_POST['Customer']['TokenCustomerID']) && $_POST['Customer']['TokenCustomerID'] > 0) {
         $queryCustomerResponse = $rapidSDKClient->queryCustomer($_POST['Customer']['TokenCustomerID']);
 
         $errors = $queryCustomerResponse->getErrors();
@@ -58,7 +58,7 @@ if (isset($_POST['form_key'])) {
         'LogoUrl'               => $_POST['LogoUrl'],
         'HeaderText'            => $_POST['HeaderText'],
         'Language'              => $_POST['Language'],
-        'Capture'               => (boolean)$_POST['Capture'],
+//        'Capture'               => (boolean)$_POST['Capture'],
         'Options'               => $options,
     ));
 

@@ -10,7 +10,7 @@ $(document).ready(function() {
             $('input[name*=Customer]').each(function() {
                 $(this).removeAttr('required');
             });
-            $('tr[class*=Customer]').addClass('hidden');
+//            $('tr[class*=Customer]').addClass('hidden');
             $('tr[id=Customer]').after('<tr class="TokenCustomerID"><td width="30%"><span>Token Customer ID</span></td><td><input type="text" class="Customer[TokenCustomerID]" name="Customer[TokenCustomerID]" required value=""></td></tr>');
         } else {
 
@@ -20,7 +20,7 @@ $(document).ready(function() {
             }
 
             $('tr[class=TokenCustomerID]').remove();
-            $('tr[class*=Customer]').removeClass('hidden');
+//            $('tr[class*=Customer]').removeClass('hidden');
         }
 
     });

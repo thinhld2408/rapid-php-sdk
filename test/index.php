@@ -6,8 +6,14 @@
 </head>
 
 <body>
+
+<?php include 'header.php' ?>
+
 <div align="center"><h2>eWay SDK Testing</h2></div>
 <ul>
+    <li>
+        <a href="/test/messages.php/">User Display Message</a>
+    </li>
     <li>
         <a href="/test/transparent/">Create Transaction: Transparent Redirect</a>
     </li>

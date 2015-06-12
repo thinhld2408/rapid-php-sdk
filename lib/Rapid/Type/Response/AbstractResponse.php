@@ -178,8 +178,9 @@ abstract class AbstractResponse extends ResourceModel
      */
     private function getMessages($lang = 'EN')
     {
+        $ds = DIRECTORY_SEPARATOR;
         $lang = trim(strtolower($lang));
-        $path = str_replace('Type/Response', self::MSG_DIR, __DIR__) . '/';
+        $path = str_replace('Type' . $ds . 'Response', self::MSG_DIR, __DIR__) . $ds;
         $file_path = $path . $lang . '.ini';
 
         if (file_exists($file_path)) {

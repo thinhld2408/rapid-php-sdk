@@ -15,7 +15,8 @@ $title = 'Update Customer';
 
 <body>
 
-    <?php include $step . '.php' ?>
+<?php include '../header.php' ?>
+<?php include $step . '.php' ?>
 
 </body>
 </html>

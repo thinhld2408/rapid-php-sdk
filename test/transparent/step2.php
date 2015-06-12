@@ -12,8 +12,7 @@ if (isset($_POST['form_key'])) {
     $rapidSDK = new RapidSDK();
     $rapidSDKClient = $rapidSDK->createSDKClient(API_KEY, API_PASSWORD);
 
-
-    if (isset($_POST['Customer']['TokenCustomerID'])) {
+    if (isset($_POST['Customer']['TokenCustomerID']) && $_POST['Customer']['TokenCustomerID'] > 0) {
         $queryCustomerResponse = $rapidSDKClient->queryCustomer($_POST['Customer']['TokenCustomerID']);
 
         $errors = $queryCustomerResponse->getErrors();
@@ -53,12 +52,12 @@ if (isset($_POST['form_key'])) {
         'CustomerIP'        => $_POST['CustomerIP'],
         'RedirectUrl'       => $_POST['RedirectUrl'] . '&pm=' . $_POST['Method'],
         'TransactionType'   => $_POST['TransactionType'],
-        'Capture'           => (boolean)$_POST['Capture'],
+//        'Capture'           => (boolean)$_POST['Capture'],
         'Options'           => $options,
     ));
 
     $accessCodeResponse = $rapidSDKClient->createAccessCode($accessCode);
-    //print '<pre>'; print_r($accessCodeResponse);die;
+//    print '<pre>'; print_r($accessCodeResponse);die;
 
     $errors = $accessCodeResponse->getErrors();
     if (empty($errors)) {
@@ -97,7 +96,7 @@ if (isset($_POST['form_key'])) {
                     </td>
                 </tr>
                 <tr>
-                    <td>Card Start Date</td>
+                    <td>Card Start Month</td>
                     <td>
                         <input type="text" name="EWAY_CARDSTARTMONTH" value="<?= isset($card) ? $card->start_month : '' ?>" />
                     </td>

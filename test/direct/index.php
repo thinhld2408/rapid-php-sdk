@@ -15,6 +15,7 @@ $step = isset($_GET['s']) ? $_GET['s'] : 'step1';
 
 <body>
 
+<?php include '../header.php' ?>
 <?php include $step . '.php' ?>
 
 </body>
